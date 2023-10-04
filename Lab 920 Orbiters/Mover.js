@@ -36,6 +36,7 @@ Mover.prototype.checkOverlapping = function () {
       let d = Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y));//vector for this is a no go
       if (d < this.diam + b[i].diam) {
         this.isOverlapping = true;
+        console.log("a");
         return;
       }
     }

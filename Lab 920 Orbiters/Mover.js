@@ -7,7 +7,7 @@ function Mover(x, y, dx, dy, diam) {
   this.diam = diam;
   this.orbiters = [];
   this.loadOrbiters(8)
-
+  this.isOverlapping = false;
 }
 
 
@@ -28,8 +28,18 @@ Mover.prototype.checkEdges = function () {
   if (this.loc.y < 0 - this.diam) this.loc.y = canvas.height;
 }
 
-Mover.prototype.checkOverlapping(){
-
+Mover.prototype.checkOverlapping = function () {
+  this.isOverlapping = false;
+  let b = movers;
+  for (let i = 0; i < b.length; i++) {
+    if (this != b[i]) {
+      let d = Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y));//vector for this is a no go
+      if (d < this.diam + b[i].diam) {
+        this.isOverlapping = true;
+        return;
+      }
+    }
+  }
 }
 
 // renders a mover to the canvas

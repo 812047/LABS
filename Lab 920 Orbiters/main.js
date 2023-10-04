@@ -7,7 +7,7 @@ function init() {
     context = canvas.getContext("2d");
   
 
-   loadMovers(10);
+   loadMovers(15);
   // runMovers();
     animate();
 
@@ -34,7 +34,7 @@ function loadMovers(n) {
         
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        let r = 15;
+        let r = Math.random() * 15 + 5;
         let dx = Math.random()*4-2;
         let dy = Math.random()*4-2;
         

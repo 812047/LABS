@@ -3,11 +3,9 @@ function Mover(x, y, dx, dy, diam) {
   //this.x = x; this.y = y;
   this.loc = new JSVector(x, y);
   this.vel = new JSVector(dx, dy);
-  this.acc = new JSVector(0, 0);
   this.diam = diam;
   this.orbiters = [];
-  this.loadOrbiters(8)
-  this.isOverlapping = false;
+  this.loadOrbiters(6)
 }
 
 
@@ -17,7 +15,7 @@ Mover.prototype.run = function () {
   this.update();
   this.render();
   this.runOrbiter();
-  this.checkOverlapping();
+  this.checkOverlapping();//Does more than just checking 
 }
 
 
@@ -30,18 +28,22 @@ Mover.prototype.checkEdges = function () {
 }
 
 Mover.prototype.checkOverlapping = function () {
-  this.isOverlapping = false;
   let b = movers;
-  console.log(movers)
   for (let i = 0; i < b.length; i++) {
-    if (this != b[i]) {
-    //  console.log(this);
-      console.log(b[i]);
-      let d = Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y));
-      console.log(Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y)))
-      if (d < this.diam + b[i].diam) {
-        this.isOverlapping = true;
+    if (this != movers[i]) {
 
+      let d = Math.sqrt((this.loc.x - movers[i].loc.x) * (this.loc.x - movers[i].loc.x) + (this.loc.y - movers[i].loc.y) * (this.loc.y - movers[i].loc.y));
+
+      if (d < this.diam + movers[i].diam) {
+        this.isOverlapping = true;
+        if(movers[i].diam > this.diam){
+        this.orbiters.splice(0);//this is very scuffed idk
+        this.vel = movers[i].vel;
+        }else{
+          movers[i].orbiters.splice(0)
+          movers[i].vel = this.vel;
+        }
+   
         return;
       }
     }
@@ -62,6 +64,8 @@ Mover.prototype.render = function () {
 
 
 
+
+
 Mover.prototype.update = function () {
 
     this.acc.multiply(0.0008);//yeah this is important to be very small 
@@ -76,7 +80,7 @@ Mover.prototype.loadOrbiters = function(n){
   for(let i = 0; i < n; i++){
 
     let r = 5;
-    let angularVelocity = 0.06;
+    let angularVelocity = 0.04;
     let red = Math.floor(Math.random()*256);
     let green = Math.floor(Math.random()*256);
     let blue = Math.floor(Math.random()*256);

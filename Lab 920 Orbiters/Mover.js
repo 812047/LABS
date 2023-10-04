@@ -17,6 +17,7 @@ Mover.prototype.run = function () {
   this.update();
   this.render();
   this.runOrbiter();
+  this.checkOverlapping();
 }
 
 
@@ -31,12 +32,16 @@ Mover.prototype.checkEdges = function () {
 Mover.prototype.checkOverlapping = function () {
   this.isOverlapping = false;
   let b = movers;
+  console.log(movers)
   for (let i = 0; i < b.length; i++) {
     if (this != b[i]) {
-      let d = Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y));//vector for this is a no go
+    //  console.log(this);
+      console.log(b[i]);
+      let d = Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y));
+      console.log(Math.sqrt((this.x - b[i].x) * (this.x - b[i].x) + (this.y - b[i].y) * (this.y - b[i].y)))
       if (d < this.diam + b[i].diam) {
         this.isOverlapping = true;
-        console.log("a");
+
         return;
       }
     }

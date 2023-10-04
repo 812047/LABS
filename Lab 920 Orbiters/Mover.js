@@ -6,7 +6,7 @@ function Mover(x, y, dx, dy, diam) {
   this.acc = new JSVector(0, 0)
   this.diam = diam;
   this.orbiters = [];
-  this.loadOrbiters(6)
+  this.loadOrbiters(1)
 }
 
 
@@ -38,9 +38,11 @@ Mover.prototype.checkOverlapping = function () {
       if (d < this.diam + movers[i].diam) {
         this.isOverlapping = true;
         if (movers[i].diam > this.diam) {
-          this.vel = movers[i].vel;
+       //   movers[i].loadOrbiters(movers[i].orbiters.length + this.orbiters.length);
           this.orbiters.splice(0);//this is very scuffed idk
+          this.vel = movers[i].vel;
         } else {
+         // this.loadOrbiters(movers[i].orbiters.length + this.orbiters.length);
           movers[i].orbiters.splice(0)
           movers[i].vel = this.vel;
         }

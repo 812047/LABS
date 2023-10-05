@@ -6,7 +6,7 @@ function Mover(x, y, dx, dy, diam) {
   this.acc = new JSVector(0, 0)
   this.diam = diam;
   this.orbiters = [];
-  this.loadOrbiters(4)
+  this.loadOrbiters(2)
 }
 
 
@@ -36,13 +36,13 @@ Mover.prototype.checkOverlapping = function () {
 
       let d = Math.sqrt((this.loc.x - movers[i].loc.x) * (this.loc.x - movers[i].loc.x) + (this.loc.y - movers[i].loc.y) * (this.loc.y - movers[i].loc.y));
       if (d < this.diam + movers[i].diam && (this.hasCombined != true || movers[i].hasCombined != true) ){
-        if (movers[i].diam > this.diam && movers[i].hasCombined != true) {
+        if (movers[i].diam > this.diam && movers[i].hasCombined != true && movers[i].orbiters.length > 0 && this.orbiters.length > 0) {
           movers[i].loadOrbiters(movers[i].orbiters.length + this.orbiters.length);
           this.orbiters.splice(0);//this is very scuffed idk
           this.vel = movers[i].vel;
           movers[i].hasCombined = true;
-          console.log("combined")
-        } else if (movers[i].diam < this.diam && this.hasCombined != true){
+          
+        } else if (movers[i].diam < this.diam && this.hasCombined != true && this.orbiters.length > 0 && movers[i].orbiters.length > 0){
 
           this.loadOrbiters(movers[i].orbiters.length + this.orbiters.length);
           movers[i].orbiters.splice(0);
@@ -75,7 +75,7 @@ Mover.prototype.render = function () {
 
 Mover.prototype.update = function () {
 
-  this.acc.multiply(0.0008);//yeah this is important to be very small 
+  this.acc.multiply(0);//yeah this is important to be very small 
   this.vel.add(this.acc);
   this.loc.add(this.vel);
   this.vel.limit(2);
@@ -83,7 +83,7 @@ Mover.prototype.update = function () {
 }
 
 Mover.prototype.loadOrbiters = function (n) {
-  n = Math.floor(Math.random() * n + 4);
+  n = Math.floor(Math.random() * n + n/2);
   for (let i = 0; i < n; i++) {
 
     let r = 5;

@@ -7,7 +7,7 @@ function init() {
     context = canvas.getContext("2d");
   
 
-   loadMovers(15);
+   loadMovers(30);
   // runMovers();
     animate();
 

@@ -2,7 +2,7 @@ function Orbiter(parent, rad, col, a, av){
     this.mover = parent; 
     this.loc = new JSVector(parent.loc.x, parent.loc.y);
     this.rad = rad;
-    this.orbitalRadius = 45;
+    this.orbitalRadius = 35;
     this.c = col;
     this.angle = a;
     this.angularVelocity = av;

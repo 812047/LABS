@@ -10,7 +10,7 @@ PartSys.prototype.run = function () {
 }
 
 PartSys.prototype.render = function () {
-
+    Particle.run();
 }
 
 PartSys.prototype.update = function () {

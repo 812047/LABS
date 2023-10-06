@@ -1,8 +1,5 @@
 function Particle(loc, lifeSpan, diam){
-    this.loc = loc.copy();
-    this.originx = this.loc.x;
-    this.vel = new JSVector(Math.random() * 4 - 2, Math.random * -3 - 2);
-    this.acc = new JSVector(0, 0.05);
+    this.loc = new JSVector(x, y);
     this.lifeSpan = lifeSpan;
     this.diam = diam;
     this.isDead = false;
@@ -25,4 +22,14 @@ Particle.prototype.run = function () {
 Particle.prototype.update = function (){
     this.vel.add(this.acc);
     this.loc.add(this.vel);
+}
+
+Particle.prototype.render = function (){
+  let ctx = context;
+  ctx.strokeStyle = "rgb(255,0,0)";
+  ctx.fillStyle = "rgb(255,0,0)";
+  ctx.beginPath();
+  ctx.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
+  ctx.stroke();
+  ctx.fill();
 }

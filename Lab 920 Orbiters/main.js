@@ -7,7 +7,7 @@ function init() {
     context = canvas.getContext("2d");
   
 
-   loadMovers(15);
+   loadMovers(30);
   // runMovers();
     animate();
 
@@ -25,9 +25,6 @@ function animate() {
 
 }
 
-function addForces(){
-   Mover.prototype.addForces();
-}
 function loadMovers(n) {
     
     for (let i = 0; i < n; i++) {

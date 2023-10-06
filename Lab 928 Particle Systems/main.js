@@ -1,13 +1,14 @@
 
 window.addEventListener("load", init);
 let canvas, context;
-let particles = [];
+let plants = [];
+let foods = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
   
 
-    loadParticles();
+    loadPlants(1);
     animate();
 
 }
@@ -17,7 +18,8 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runParticles();   // run bubbles
+    runPlants();   // run bubbles
+   // runpartSys();
     requestAnimationFrame(animate); // next cycle
    
 
@@ -25,7 +27,7 @@ function animate() {
 }
 
 
-function loadParticles(n) {
+function loadPlants(n) {
     
     for (let i = 0; i < n; i++) {
         
@@ -33,9 +35,9 @@ function loadParticles(n) {
         let y = 1/2 * canvas.height;
         let w = new JSVector(x, y)
         let r = 15;
-        
+        let l = Math.random() * 1500 + 750
        
-            particles[i] = new Particle(w, 300, r);
+            plants[i] = new Plant(x, y, l, r);
         
    
 
@@ -43,9 +45,12 @@ function loadParticles(n) {
 }
 
 
+
+
+
 // move the circle to a new location
-function runParticles() {
-    for (let i = 0; i < movers.length; i++) {
-        particles[i].run();
+function runPlants() {
+    for (let i = 0; i < plants.length; i++) {
+        plants[i].run();
     }
 }

@@ -46,7 +46,7 @@ Plant.prototype.loadFoods = function (n) {
     let r = 15;
 
     for(let i = 0; i < n; i ++){
-    this.foods[i] = new Food(this, r)
+    this.foods[i] = new Food(this, r);
     }
 }
 

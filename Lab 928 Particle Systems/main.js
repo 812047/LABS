@@ -18,8 +18,7 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runPlants();   // run bubbles
-   // runpartSys();
+    runPlants();   
     requestAnimationFrame(animate); // next cycle
    
 

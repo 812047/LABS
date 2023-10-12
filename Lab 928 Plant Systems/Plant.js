@@ -12,6 +12,7 @@ Plant.prototype.run = function () {
     this.update();
     this.render();
     this.runFoods();
+    console.log("run")
 
     this.lifeSpan--;
     this.spawnTime--;
@@ -27,14 +28,14 @@ Plant.prototype.run = function () {
 
 Plant.prototype.update = function () {
     if (this.isDead === true) {
-        Plant.splice(this);
+        splice(this);
     }
 }
 
 Plant.prototype.render = function () {
     let ctx = context;
-    ctx.strokeStyle = "rgb(55,244,0)";
-    ctx.fillStyle = "rgb(55,244,0)";
+    ctx.strokeStyle = "rgba(55,244,0,0)";
+    ctx.fillStyle = "rgba(55,244,0,0)";
     ctx.beginPath();
     ctx.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
     ctx.stroke();

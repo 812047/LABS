@@ -3,7 +3,8 @@ function Plant(x, y, lifeSpan, diam) {
     this.lifeSpan = lifeSpan;
     this.diam = diam;
     this.isDead = false;
-    this.spawnTime = 150;
+
+    this.spawnTime = 500;
     this.foods = [];
 }
 
@@ -22,7 +23,7 @@ Plant.prototype.run = function () {
     }
     if (this.spawnTime < 0) {
         this.loadFoods(3);
-        this.spawnTime = 150;
+        this.spawnTime = 500;
     }
 }
 
@@ -43,13 +44,12 @@ Plant.prototype.render = function () {
 }
 
 Plant.prototype.loadFoods = function (n) {
-    let y;
     let r = 15;
-
-    for (let i = n; i < n + y; i++) {
-        this.foods[i] = new Food(this, r);
+    for (let i = 0; i < n; i++) {
+        console.log("loadFoods")
+        this.foods.push(new Food(this, r));
     }
-    y = n;
+  
 }
 
 Plant.prototype.runFoods = function () {

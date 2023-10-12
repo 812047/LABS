@@ -31,8 +31,7 @@ function loadPlants(n) {
         
         let x = 1/2*canvas.width;
         let y = 1/2 * canvas.height;
-        let w = new JSVector(x, y)
-        let r = 15;
+        let r = 24;
         let l = Math.random() * 1500 + 750
        
             plants[i] = new Plant(x, y, l, r);

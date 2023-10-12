@@ -2,15 +2,16 @@ function Food(parent, r){
     this.plant = parent; 
     this.r = r;
     this.loc = new JSVector(parent.loc.x, parent.loc.y);
-    this.vel = new JSVector(Math.random()*4 - 2, Math.random()*4 - 2);
-    this.acc = new JSVector(0,0)
-    this.lifespan = 300;
+    this.vel = new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
+    this.acc = new JSVector()
+    this.lifespan = 2200;
+    this.speed = 1;
 
     this.isDead = false;
-    let red = Math.floor(Math.random() * 256);
-    let green = Math.floor(Math.random() * 256);
-    let blue = Math.floor(Math.random() * 256);
-    this.c = 'rgb(' + red + ',' + green + ',' + blue + ')';
+    // let red = Math.floor(Math.random() * 256);
+    // let green = Math.floor(Math.random() * 256);
+    // let blue = Math.floor(Math.random() * 256);
+    // this.c = 'rgb(' + red + ',' + green + ',' + blue + ')';
 }
 
 Food.prototype.run = function () {
@@ -38,17 +39,10 @@ Food.prototype.render = function () {
 }
 
 Food.prototype.update = function () {
-    this.acc.multiply(0);//yeah this is important to be very small 
   this.vel.add(this.acc);
+
   this.loc.add(this.vel);
   this.vel.limit(2);
-}
-
-Food.prototype.addParticle = function () {
-
-} 
-
-Food.prototype.removeParticle = function () {
-
+  this.speed;
 }
 

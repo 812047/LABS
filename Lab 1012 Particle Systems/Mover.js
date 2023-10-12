@@ -7,7 +7,7 @@ function Mover(x, y, diam, shape) {
 
   this.acc = new JSVector(0, 0.005)
   this.diam = diam;
-  this.lifeSpan = Math.random()*15000 + 7500;
+  this.lifeSpan = Math.random()*15000 + 7500;//idk this works but I think its fps dependent.
 
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);

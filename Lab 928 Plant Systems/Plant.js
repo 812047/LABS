@@ -28,7 +28,7 @@ Plant.prototype.run = function () {
 
 Plant.prototype.update = function () {
     if (this.isDead === true) {
-        splice(this);
+      //  splice(this);
     }
 }
 

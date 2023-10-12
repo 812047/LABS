@@ -37,17 +37,12 @@ Mover.prototype.render = function () {
   if(this.shape === 0){
 ctx.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
   }else if (this.shape === 1){
-ctx.rect(this.loc.x, this.loc.y, this.diam, this.diam);
+ctx.rect(this.loc.x, this.loc.y, this.diam + this.diam/4, this.diam + this.diam/4);
   }
   ctx.stroke();
   ctx.fill();
   
 }
-
-
-
-
-
 Mover.prototype.update = function () {
 this.lifeSpan--;
   if(this.lifeSpan < 0){
@@ -56,7 +51,7 @@ this.lifeSpan--;
 
   this.vel.add(this.acc);
   this.loc.add(this.vel);
-  this.vel.limit(2);
+
 
 }
 

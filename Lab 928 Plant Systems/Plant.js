@@ -4,7 +4,7 @@ function Plant(x, y, lifeSpan, diam) {
     this.diam = diam;
     this.isDead = false;
 
-    this.spawnTime = 500;
+    this.spawnTime = 400;
     this.foods = [];
 }
 
@@ -20,10 +20,11 @@ Plant.prototype.run = function () {
 
     if (this.lifeSpan < 0) {
         this.isDead = true;
+        this.foods.splice();
     }
     if (this.spawnTime < 0) {
-        this.loadFoods(3);
-        this.spawnTime = 500;
+        this.loadFoods(6);
+        this.spawnTime = 400;
     }
 }
 

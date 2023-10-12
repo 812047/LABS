@@ -7,7 +7,7 @@ function init() {
     context = canvas.getContext("2d");
   
 
-    loadPlants(1);
+    loadPlants(2);
     animate();
 
 }
@@ -29,8 +29,8 @@ function loadPlants(n) {
     
     for (let i = 0; i < n; i++) {
         
-        let x = 1/2*canvas.width;
-        let y = 1/2 * canvas.height;
+        let x = Math.random()*canvas.width;
+        let y = Math.random()*canvas.height;
         let r = 24;
         let l = Math.random() * 1500 + 750
        

@@ -4,14 +4,13 @@ function Food(parent, r){
     this.loc = new JSVector(parent.loc.x, parent.loc.y);
     this.vel = new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
     this.acc = new JSVector()
-    this.lifespan = 2200;
-    this.speed = 1;
+    this.lifespan = 600;
 
     this.isDead = false;
-    // let red = Math.floor(Math.random() * 256);
-    // let green = Math.floor(Math.random() * 256);
-    // let blue = Math.floor(Math.random() * 256);
-    // this.c = 'rgb(' + red + ',' + green + ',' + blue + ')';
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    this.c = 'rgb(' + red + ',' + green + ',' + blue + ')';
 }
 
 Food.prototype.run = function () {
@@ -39,10 +38,11 @@ Food.prototype.render = function () {
 }
 
 Food.prototype.update = function () {
-  this.vel.add(this.acc);
 
   this.loc.add(this.vel);
-  this.vel.limit(2);
-  this.speed;
+  this.vel = new JSVector(this.vel.x*0.993, this.vel.y*0.993);
+
+  
+
 }
 

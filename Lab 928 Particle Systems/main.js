@@ -2,7 +2,6 @@
 window.addEventListener("load", init);
 let canvas, context;
 let plants = [];
-let foods = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");

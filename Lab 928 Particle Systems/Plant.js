@@ -1,4 +1,4 @@
-function Plant(x , y, lifeSpan, diam) {
+function Plant(x, y, lifeSpan, diam) {
     this.loc = new JSVector(x, y);
     this.lifeSpan = lifeSpan;
     this.diam = diam;
@@ -19,15 +19,15 @@ Plant.prototype.run = function () {
     if (this.lifeSpan < 0) {
         this.isDead = true;
     }
-    if(this.spawnTime < 0){
-        Plant.prototype.loadFoods(3);
-        spawnTime = 150;
+    if (this.spawnTime < 0) {
+        this.loadFoods(3);
+        this.spawnTime = 150;
     }
 }
 
 Plant.prototype.update = function () {
     if (this.isDead === true) {
-        particles.splice(this);
+        Plant.splice(this);
     }
 }
 
@@ -42,12 +42,13 @@ Plant.prototype.render = function () {
 }
 
 Plant.prototype.loadFoods = function (n) {
-
+    let y;
     let r = 15;
 
-    for(let i = 0; i < n; i ++){
-    this.foods[i] = new Food(this, r);
+    for (let i = n; i < n + y; i++) {
+        this.foods[i] = new Food(this, r);
     }
+    y = n;
 }
 
 Plant.prototype.runFoods = function () {

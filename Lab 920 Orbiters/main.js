@@ -25,9 +25,6 @@ function animate() {
 
 }
 
-function addForces(){
-   Mover.prototype.addForces();
-}
 function loadMovers(n) {
     
     for (let i = 0; i < n; i++) {

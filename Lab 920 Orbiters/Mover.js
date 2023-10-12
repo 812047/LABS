@@ -30,7 +30,7 @@ Mover.prototype.checkEdges = function () {
 
 Mover.prototype.checkOverlapping = function () {
   let b = movers;
-  let hasCombined = false;
+  let hasCombined = false;// I have no idea
   for (let i = 0; i < b.length; i++) {
     if (this != movers[i]) {
 
@@ -48,7 +48,7 @@ Mover.prototype.checkOverlapping = function () {
           movers[i].orbiters.splice(0);
           movers[i].vel = this.vel;
           this.hasCombined = true;
-          console.log("combined")
+          console.log("combined");
         }
 
         return;

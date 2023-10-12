@@ -1,13 +1,14 @@
 
 window.addEventListener("load", init);
 let canvas, context;
-let movers = [];
+let plants = [];
+let foods = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
   
 
-  // runMovers();
+    loadPlants(1);
     animate();
 
 }
@@ -17,28 +18,26 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runMovers();   // run bubbles
+    runPlants();   // run bubbles
+   // runpartSys();
     requestAnimationFrame(animate); // next cycle
    
 
 
 }
 
-function addForces(){
-   Mover.prototype.addForces();
-}
-function loadMovers(n) {
+
+function loadPlants(n) {
     
     for (let i = 0; i < n; i++) {
         
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let r = Math.random() * 10 + 5;
-        let dx = Math.random()*2-1;
-        let dy = Math.random()*2-1;
-        
+        let x = 1/2*canvas.width;
+        let y = 1/2 * canvas.height;
+        let w = new JSVector(x, y)
+        let r = 15;
+        let l = Math.random() * 1500 + 750
        
-            movers[i] = new Mover(x, y, dx, dy, r);
+            plants[i] = new Plant(x, y, l, r);
         
    
 
@@ -46,9 +45,12 @@ function loadMovers(n) {
 }
 
 
+
+
+
 // move the circle to a new location
-function runMovers() {
-    for (let i = 0; i < movers.length; i++) {
-        movers[i].run();
+function runPlants() {
+    for (let i = 0; i < plants.length; i++) {
+        plants[i].run();
     }
 }

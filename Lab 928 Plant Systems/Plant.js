@@ -48,7 +48,11 @@ Plant.prototype.loadFoods = function (n) {
     let r = 15;
     for (let i = 0; i < n; i++) {
         console.log("loadFoods")
-        this.foods.push(new Food(this, r));
+        let red = Math.floor(Math.random() * 256);
+        let green = Math.floor(Math.random() * 256);
+        let blue = Math.floor(Math.random() * 256);
+        this.c = 'rgb(' + red + ',' + green + ',' + blue + ')';
+        this.foods.push(new Food(this, r, d));
     }
   
 }

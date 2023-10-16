@@ -5,7 +5,7 @@ function Food(parent, r, d){
     this.vel = new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
     this.acc = new JSVector()
     this.lifespan = 600;
-    this.c = d
+    this.c = d;
     this.isDead = false;
   
 }

@@ -1,14 +1,14 @@
 
 window.addEventListener("load", init);
 let canvas, context;
-let planets = [];// yeah idk why array if you are doing one of each only
+let planets = [];
 let ships = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadPlanet(1);
-    loadShip(1);
-   
+
+    ships.push(new Ship(Math.random()*canvas.width/2 + canvas.width/4, Math.random()*canvas.height/2 + canvas.height/4));
+   planets.push(new Planet(Math.random()*canvas.width/2 + canvas.width/4, Math.random()*canvas.height/2 + canvas.height/4, 30));
     animate();
 
 }
@@ -18,36 +18,36 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runPlanet();
-    runShip();
+  planets[0].run();
+    ships[0].run();
     requestAnimationFrame(animate); // next cycle
 
 
 
 }
 
+//why are you keeping these
+// function runPlanet(){
+//     for(let i = 0; i < planets.length; i ++){
+       
+//     }
+// }
 
-function runPlanet(){
-    for(let i = 0; i < planets.length; i ++){
-        planets[i].run();
-    }
-}
+// function loadPlanet(n){
 
-function loadPlanet(n){
+//     for(let i = 0; i < n; i++){
+        
+//     }
+// }
+// function runShip(){
+//     for(let i = 0; i < planets.length; i ++){
+       
+//     }
+// }
 
-    for(let i = 0; i < n; i++){
-        planets.push(new Planet(400, 400, 40));
-    }
-}
-function runShip(){
-    for(let i = 0; i < planets.length; i ++){
-        ships[i].run();
-    }
-}
+// function loadShip(n){
 
-function loadShip(n){
-
-    for(let i = 0; i < n; i++){
-        ships.push(new Ship(200, 400));
-    }
-}
+//     for(let i = 0; i < n; i++){
+        
+//     }
+// }

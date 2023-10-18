@@ -74,8 +74,9 @@ function JSVector(x = 0, y = 0) {
   
   // Normalize this vector so that it has a magnitude of 1
   JSVector.prototype.normalize = function () {
-    this.x /= this.x;
-    this.y /= this.y;
+    let mag = Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
+    this.x /= mag;
+    this.y /= mag;
   }
   
   // Limit the magnitude of this vector
@@ -120,8 +121,8 @@ function JSVector(x = 0, y = 0) {
     let y = this.y;
     let sin = Math.sin(angle);
     let cos = Math.cos(angle);
-    this.x = x*cos - x*sin;
-    this.y = y*sin + y*cos;
+    this.x = x*cos - y*sin;
+    this.y = x*sin + y*cos;
     
   }
   

@@ -21,15 +21,16 @@ Ship.prototype.update = function () {
    
     let d = Math.sqrt((this.loc.x - planets[0].loc.x) * (this.loc.x - planets[0].loc.x) + (this.loc.y - planets[0].loc.y) * (this.loc.y - planets[0].loc.y));
     console.log(d);
-this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
-
-this.acc.normalize;
-this.acc.multiply(0.0008);//yeah this is important to be very small 
-this.vel.add(this.acc);
-
-this.loc.add(this.vel);
-
+    this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
+    console.log("acc: " + this.acc);
+    this.acc.normalize();
+ 
+ //   this.acc.multiply(1);//yeah this is important to be very small 
+ //   this.vel.add(this.acc);
+    this.vel = this.acc;
     this.vel.limit(1.4);
+    this.loc.add(this.vel);
+
 }
 
 Ship.prototype.checkEdges = function () {
@@ -46,7 +47,6 @@ Ship.prototype.render = function () {
     
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.vel.getDirection() + Math.PI/2)
- //   console.log(this.vel.getDirection() + Math.PI/4)
     ctx.beginPath();
     ctx.moveTo(0, -15)
     ctx.lineTo(-10, 10);

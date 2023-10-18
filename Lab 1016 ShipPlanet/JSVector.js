@@ -32,7 +32,7 @@ function JSVector(x = 0, y = 0) {
   JSVector.prototype.getDirection = function () {
     let theta = 0;
     theta = Math.atan2(this.y, this.x);
-    return theta * 180 / Math.PI;
+    return theta;
   }
   
   
@@ -120,8 +120,8 @@ function JSVector(x = 0, y = 0) {
     let y = this.y;
     let sin = Math.sin(angle);
     let cos = Math.cos(angle);
-    this.x = x*cos - y*sin;
-    this.y = x*sin + y*cos;
+    this.x = x*cos - x*sin;
+    this.y = y*sin + y*cos;
     
   }
   

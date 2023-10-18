@@ -23,11 +23,14 @@ if(d < 300){
 this.acc = JSVector.subGetNew(this.loc, ships[0].loc);
 
 this.acc.normalize;
-this.acc.multiply(0.00008);
+this.acc.multiply(0.00001);
 this.vel.add(this.acc);
 
 this.loc.add(this.vel);
-    this.loc.add(this.vel);
+if(d < 50){
+this.loc.x = Math.random()*canvas.width;
+this.loc.y = Math.random()*canvas.height;
+}
 }
 }
 
@@ -41,8 +44,8 @@ Planet.prototype.render = function (){
     ctx.fill();
 }
 Planet.prototype.checkEdges = function () {
-    if (this.loc.x > canvas.width) this.loc.x = 0;
+    if (this.loc.x > canvas.width ) this.loc.x = 0;
     if (this.loc.x < 0) this.loc.x = canvas.width;
-    if (this.loc.y > canvas.height) this.loc.y = 0;
-    if (this.loc.y < 0) this.loc.y = canvas.height;
+    if (this.loc.y > canvas.height ) this.loc.y = 0;
+    if (this.loc.y  < 0) this.loc.y = canvas.height;
 }

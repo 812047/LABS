@@ -6,6 +6,7 @@ function Ship(x, y) {
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
     this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.8 + ')';
+    this.p = 50;
 }
 
 
@@ -16,35 +17,21 @@ Ship.prototype.run = function () {
 }
 
 Ship.prototype.update = function () {
-    let ctx = context;
+ 
    
     let d = Math.sqrt((this.loc.x - planets[0].loc.x) * (this.loc.x - planets[0].loc.x) + (this.loc.y - planets[0].loc.y) * (this.loc.y - planets[0].loc.y));
-
-
-if(d < 10000){
+    console.log(d);
 this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
 
 this.acc.normalize;
-this.acc.multiply(0.00008);//yeah this is important to be very small 
+this.acc.multiply(0.0008);//yeah this is important to be very small 
 this.vel.add(this.acc);
-//  this.vel.limit(1.8);
+
 this.loc.add(this.vel);
-    this.loc.add(this.vel);
-    this.vel.limit(1)
-}
-ctx.save();
-ctx.translate(this.loc.x, this.loc.y);
-ctx.rotate(this.loc.angleBetween(planets[0].loc));
-console.log(this.loc.angleBetween(planets[0].loc));
 
-    ctx.translate(this.loc.x, this.loc.y);
-   
-    ctx.scale(0.005, 0.005)
-   // ctx.translate(0, 0);
-   ctx.rotate(this.loc.angleBetween(planets[0].loc));
-   ctx.restore();
-
+    this.vel.limit(1.4);
 }
+
 Ship.prototype.checkEdges = function () {
     if (this.loc.x > canvas.width) this.loc.x = 0;
     if (this.loc.x < 0) this.loc.x = canvas.width;
@@ -53,42 +40,35 @@ Ship.prototype.checkEdges = function () {
 }
 Ship.prototype.render = function () {
     let ctx = context;
+    ctx.save();
     ctx.strokeStyle = this.c;
     ctx.fillStyle = this.c;
-
-
-
+    
+    ctx.translate(this.loc.x, this.loc.y);
+    ctx.rotate(this.vel.getDirection() + Math.PI/2)
+ //   console.log(this.vel.getDirection() + Math.PI/4)
     ctx.beginPath();
-     ctx.moveTo(this.loc.x, this.loc.y);
-    ctx.lineTo(this.loc.x, this.loc.y);
-    ctx.lineTo(this.loc.x + 20, this.loc.y);
-
-    ctx.lineTo(this.loc.x - 20, this.loc.y + 20);
-    ctx.lineTo(this.loc.x, this.loc.y);
-    ctx.lineTo(this.loc.x - 20, this.loc.y - 20)
-    ctx.lineTo(this.loc.x + 20, this.loc.y);
-    ctx.lineTo(this.loc.x, this.loc.y);
-    let p = Math.random()*75+25;
-    ctx.strokeStyle = "rgb(240,80,0)";
-    ctx.fillStyle = "rgb(240,80,0)";
-    ctx.fillRect(this.loc.x - (p), this.loc.y-3.5, p, 7)
+    ctx.moveTo(0, -15)
+    ctx.lineTo(-10, 10);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(10, 10);
+    ctx.closePath();
     ctx.stroke();
     ctx.fill();
-    console.log(this.loc.x + ", " + this.loc.y);
-    // ctx.lineTo(0, 0);
-    // ctx.lineTo(0 + 20, 0);
+    let c = "rgb(240,80,0)";
+    ctx.strokeStyle = c;
+    ctx.fillStyle = c;
+    ctx.moveTo(0, 15);
+    ctx.lineTo(-4, 20);
+    this.p += Math.random()*3-1.5;
+    if(this.p > 80 || this.p < 20) this.p = 50;
+    ctx.lineTo(0, this.p);
+    ctx.lineTo(4,20);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill()
+    ctx.restore();
 
-    // ctx.lineTo(0 - 20, 0 + 20);
-    // ctx.lineTo(0, 0);
-    // ctx.lineTo(0 - 20, 0 - 20)
-    // ctx.lineTo(0 + 20, 0);
-    // ctx.lineTo(0, 0);
-    // let p = Math.random()*75+25;
-    // ctx.strokeStyle = "rgb(240,80,0)";
-    // ctx.fillStyle = "rgb(240,80,0)";
-    // ctx.fillRect(0 - (p), 0-3.5, p, 7)
-    // ctx.stroke();
-    // ctx.fill();
 
 
 }

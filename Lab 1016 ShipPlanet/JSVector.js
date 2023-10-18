@@ -126,7 +126,7 @@ function JSVector(x = 0, y = 0) {
   }
   
   // Get the angle between this vector and another one
-  JSVector.angleBetween = function (v2) {
+  JSVector.prototype.angleBetween = function (v2) {
     return (this.getDirection() - v2.getDirection());
   }
   

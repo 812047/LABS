@@ -25,20 +25,21 @@ Creature.prototype.checkEdges = function () {
     if (this.loc.y < 0 - this.rad) this.loc.y = canvas.height;
   }
 Creature.prototype.update = function () {
-   // for(let i = 0; i < this.creatures.length; i ++){
-//let d = this.loc.distance(foods[i]);
- // if(d < 300){
-   // this.acc = JSVector.subGetNew(foods[i].loc, this.loc);
 
-  //  this.acc.normalize;
-   // this.acc.multiply(0.0008);
+   for(let i = 0; i < creatures.length; i ++){
+    //let d = Math.sqrt((this.loc.x - Plant.foods[0].loc.x) * (this.loc.x - Plant.foods[0].loc.x) + (this.loc.y - Plant.foods[0].loc.y) * (this.loc.y - Plant.foods[0].loc.y));
+// if(d < 300){
+   this.acc = JSVector.subGetNew(foods[0].loc, this.loc);
+
+   this.acc.normalize;
+   this.acc.multiply(0.0008);
 
     this.vel.add(this.acc);
   // this.vel.limit(1.8);
     this.loc.add(this.vel);
     }
 //}
-//}
+}
 
 
 

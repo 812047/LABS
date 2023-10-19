@@ -19,19 +19,21 @@ Planet.prototype.run = function (){
 Planet.prototype.update = function (){
     let d = Math.sqrt((this.loc.x - ships[0].loc.x) * (this.loc.x - ships[0].loc.x) + (this.loc.y - ships[0].loc.y) * (this.loc.y - ships[0].loc.y));
 
-if(d < 300){
+if(d < 400){
 this.acc = JSVector.subGetNew(this.loc, ships[0].loc);
 
-this.acc.normalize;
-this.acc.multiply(0.00001);
+
+this.acc.multiply(0.000088);
 this.vel.add(this.acc);
 
 this.loc.add(this.vel);
+this.vel.limit(1.8)
+}
 if(d < 50){
 this.loc.x = Math.random()*canvas.width;
 this.loc.y = Math.random()*canvas.height;
 }
-}
+
 }
 
 Planet.prototype.render = function (){
@@ -44,8 +46,8 @@ Planet.prototype.render = function (){
     ctx.fill();
 }
 Planet.prototype.checkEdges = function () {
-    if (this.loc.x > canvas.width ) this.loc.x = 0;
-    if (this.loc.x < 0) this.loc.x = canvas.width;
-    if (this.loc.y > canvas.height ) this.loc.y = 0;
-    if (this.loc.y  < 0) this.loc.y = canvas.height;
+    if (this.loc.x > canvas.width ) this.loc.x = Math.random()*canvas.width;
+    if (this.loc.x < 0) this.loc.x = Math.random()*canvas.width;
+    if (this.loc.y > canvas.height ) this.loc.y = Math.random()*canvas.height;
+    if (this.loc.y  < 0) this.loc.y = Math.random()*canvas.height;
 }

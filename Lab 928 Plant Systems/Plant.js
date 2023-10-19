@@ -3,7 +3,10 @@ function Plant(x, y, lifeSpan, diam) {
     this.lifeSpan = lifeSpan;
     this.diam = diam;
     this.isDead = false;
-
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    this.d = 'rgb(' + red + ',' + green + ',' + blue + ')';
     this.spawnTime = 400;
     this.foods = [];
 }
@@ -36,8 +39,8 @@ Plant.prototype.update = function () {
 
 Plant.prototype.render = function () {
     let ctx = context;
-    ctx.strokeStyle = "rgba(55,244,0,0)";
-    ctx.fillStyle = "rgba(55,244,0,0)";
+    ctx.strokeStyle = this.d;
+    ctx.fillStyle = this.d;
     ctx.beginPath();
     ctx.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
     ctx.stroke();
@@ -48,10 +51,7 @@ Plant.prototype.loadFoods = function (n) {
     let r = 15;
     for (let i = 0; i < n; i++) {
         console.log("loadFoods")
-        let red = Math.floor(Math.random() * 256);
-        let green = Math.floor(Math.random() * 256);
-        let blue = Math.floor(Math.random() * 256);
-        this.d = 'rgb(' + red + ',' + green + ',' + blue + ')';
+       
         this.foods.push(new Food(this, r, this.d));
     }
   

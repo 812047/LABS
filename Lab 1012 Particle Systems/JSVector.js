@@ -32,7 +32,7 @@ JSVector.prototype.setDirection = function (angle) {
 JSVector.prototype.getDirection = function () {
   let theta = 0;
   theta = Math.atan2(this.y, this.x);
-  return theta * 180 / Math.PI;
+  return theta;
 }
 
 

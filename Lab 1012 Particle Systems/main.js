@@ -33,7 +33,7 @@ function loadMovers() {
     let x = canvas.width / 2;
     let y = canvas.height / 2;
     let r = Math.random() * 25 + 5;
-    let s = Math.floor(Math.random() * 2);
+    let s = Math.floor(Math.random() * 3);
     movers.push(new Mover(x, y, r, s));
 
 }

@@ -22,7 +22,7 @@ Planet.prototype.update = function () {
     if (d < 400) {
         this.acc = JSVector.subGetNew(this.loc, ships.loc);
 
-        this.acc.multiply(0.0001);
+        this.acc.multiply(0.00006);
         this.vel.add(this.acc);
         this.vel.limit(1.8)
         this.loc.add(this.vel);

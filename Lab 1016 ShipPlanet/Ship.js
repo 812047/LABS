@@ -13,14 +13,12 @@ function Ship(x, y) {
 Ship.prototype.run = function () {
     this.render();
     this.update();
-
     this.checkEdges();
 }
 
 Ship.prototype.update = function () {
  
     this.acc = JSVector.subGetNew(planets.loc, this.loc);
-   // this.acc.multiply(0.1);//yeah this is important to be very small 
     this.acc.normalize();
     this.vel.add(this.acc);
     this.vel.limit(1.8);
@@ -44,6 +42,7 @@ Ship.prototype.render = function () {
 
     ctx.strokeStyle = this.c;
     ctx.fillStyle = this.c;
+    //body
     ctx.beginPath();
     ctx.moveTo(0, -15);
     ctx.lineTo(-10, 10);

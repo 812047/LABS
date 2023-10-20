@@ -7,8 +7,9 @@ function init() {
   canvas = document.getElementById("cnv");
   context = canvas.getContext("2d");
 
-  ships = new Ship(400, 400)
-  planets = new Planet(600,600, 30)
+  ships = new Ship(Math.random() * canvas.width / 2 + canvas.width / 4, Math.random() * canvas.height / 2 + canvas.height / 4);
+  planets = new Planet(Math.random() * canvas.width / 2 + canvas.width / 4, Math.random() * canvas.height / 2 + canvas.height / 4, 30);
+  animate();
 
 }
 
@@ -17,11 +18,11 @@ function init() {
 function animate() {
   // erase the HTMLCanvasElement
   context.clearRect(0, 0, canvas.width, canvas.height);
-  planets.run();
-  ships.run();
+  
   requestAnimationFrame(animate); // next cycle
 
-
+  planets.run();
+  ships.run();
 
 }
 

@@ -20,7 +20,7 @@ Ship.prototype.run = function () {
 Ship.prototype.update = function () {
  
     this.acc = JSVector.subGetNew(planets.loc, this.loc);
-    this.acc.multiply(0.01);//yeah this is important to be very small 
+   // this.acc.multiply(0.1);//yeah this is important to be very small 
     this.acc.normalize();
     this.vel.add(this.acc);
     this.vel.limit(1.8);

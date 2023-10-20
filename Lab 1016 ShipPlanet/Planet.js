@@ -6,8 +6,10 @@ function Planet(x, y, diam) {
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
+    this.count = 0;
     this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
-}
+}   
+
 
 
 Planet.prototype.run = function () {
@@ -31,6 +33,8 @@ Planet.prototype.update = function () {
     if (d < 50) {
         this.loc.x = Math.random() * canvas.width;
         this.loc.y = Math.random() * canvas.height;
+        this.count++;
+        console.log(this.count)
     }
 
 }

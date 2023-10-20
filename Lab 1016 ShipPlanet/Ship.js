@@ -11,17 +11,27 @@ function Ship(x, y) {
 
 
 Ship.prototype.run = function () {
-    this.render();
     this.update();
+    this.render();
+
     this.checkEdges();
 }
 
 Ship.prototype.update = function () {
- 
+    let d = this.loc.distance(planets.loc);
+    console.log(d)
+    if( d < 8000 ){
     this.acc = JSVector.subGetNew(planets.loc, this.loc);
     this.acc.normalize();
+    this.acc.multiply(0.5);
+    }
+    if( d < 900){
+        this.acc = JSVector.subGetNew(planets.loc, this.loc);
+        this.acc.normalize();
+        this.acc.multiply(0.8);
+    }
     this.vel.add(this.acc);
-    this.vel.limit(1.8);
+    this.vel.limit(5);
     this.loc.add(this.vel);
 
     
@@ -39,6 +49,7 @@ Ship.prototype.render = function () {
     ctx.save();
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.vel.getDirection() + Math.PI/2)
+    console.log(this)
 
     ctx.strokeStyle = this.c;
     ctx.fillStyle = this.c;

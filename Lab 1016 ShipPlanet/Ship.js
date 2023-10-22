@@ -23,12 +23,12 @@ Ship.prototype.update = function () {
     if( d < 8000 ){
     this.acc = JSVector.subGetNew(planets.loc, this.loc);
     this.acc.normalize();
-    this.acc.multiply(0.5);
+    this.acc.multiply(.05);
     }
     if( d < 900){
         this.acc = JSVector.subGetNew(planets.loc, this.loc);
         this.acc.normalize();
-        this.acc.multiply(0.8);
+        this.acc.multiply(0.08);
     }
     this.vel.add(this.acc);
     this.vel.limit(5);

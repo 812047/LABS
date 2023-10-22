@@ -7,7 +7,7 @@ function init() {
   canvas = document.getElementById("cnv");
   context = canvas.getContext("2d");
 ships = new Ship(200, 200);
-planets = new Planet(200,200,30)
+planets = new Planet(200,200,60)
   // ships = new Ship(Math.random() * canvas.width / 2 + canvas.width / 4, Math.random() * canvas.height / 2 + canvas.height / 4);
   // planets = new Planet(Math.random() * canvas.width / 2 + canvas.width / 4, Math.random() * canvas.height / 2 + canvas.height / 4, 30);
   animate();

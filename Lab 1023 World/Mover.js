@@ -37,12 +37,22 @@ Mover.prototype.checkEdges = function () {
 
 
 Mover.prototype.render = function () {
-   //  render balls in world
-    let ctx1 = this.ctx1;
-   
-   //  render balls in mini map
-    let ctx2 = this.ctx2;
-   
+
+  //let ctx1 = this.ctx1;
+   this.ctx1.strokeStyle = this.clr;
+   this.ctx1.fillStyle = this.clr;
+   this.ctx1.beginPath();
+   this.ctx1.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
+   this.ctx1.stroke();
+   this.ctx1.fill();
+
+ // let ctx2 = this.ctx2;
+ this.ctx2.strokeStyle = this.clr;
+ this.ctx2.fillStyle = this.clr;
+ this.ctx2.beginPath();
+ this.ctx2.arc(this.loc.x*0.2, this.loc.y*0.2, this.diam*0.2, Math.PI * 2, 0, false);
+ this.ctx2.stroke();
+ this.ctx2.fill();
 }
 
 Mover.prototype.getRandomColor = function(){

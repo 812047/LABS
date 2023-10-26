@@ -3,7 +3,7 @@ function Mover(x, y, diam, shape) {
   //this.x = x; this.y = y;
   this.shape = shape;
   this.loc = new JSVector(x, y);
-  this.vel = new JSVector(Math.random()*1-0.5, -Math.random()*1);
+  this.vel = new JSVector(Math.random()*2-1, -Math.random()*1);
 
   this.acc = new JSVector(0, 0.005)
   this.diam = diam;

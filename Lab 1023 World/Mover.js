@@ -30,7 +30,7 @@ Mover.prototype.checkEdges = function () {
   if (this.loc.x >= world.dims.width / 2 || this.loc.x <= -world.dims.width / 2) {
     this.vel.x *= -1;
   }
-  if (this.loc.y >= world.dims.height / 2 || this.loc.y < -world.dims.height  / 2) {
+  if (this.loc.y >= world.dims.height / 2 || this.loc.y < -world.dims.height / 2) {
     this.vel.y *= -1;
   }
 }
@@ -38,24 +38,22 @@ Mover.prototype.checkEdges = function () {
 
 Mover.prototype.render = function () {
 
-  //let ctx1 = this.ctx1;
-   this.ctx1.strokeStyle = this.clr;
-   this.ctx1.fillStyle = this.clr;
-   this.ctx1.beginPath();
-   this.ctx1.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
-   this.ctx1.stroke();
-   this.ctx1.fill();
+  this.ctx1.strokeStyle = this.clr;
+  this.ctx1.fillStyle = this.clr;
+  this.ctx1.beginPath();
+  this.ctx1.arc(this.loc.x-world.cnvMainLoc.x, this.loc.y-world.cnvMainLoc.y, this.diam, Math.PI * 2, 0, false);
+  this.ctx1.stroke();
+  this.ctx1.fill();
 
- // let ctx2 = this.ctx2;
- this.ctx2.strokeStyle = this.clr;
- this.ctx2.fillStyle = this.clr;
- this.ctx2.beginPath();
- this.ctx2.arc(this.loc.x*0.2, this.loc.y*0.2, this.diam*0.2, Math.PI * 2, 0, false);
- this.ctx2.stroke();
- this.ctx2.fill();
+  this.ctx2.strokeStyle = this.clr;
+  this.ctx2.fillStyle = this.clr;
+  this.ctx2.beginPath();
+  this.ctx2.arc(this.loc.x * 0.2 - world.cnvMainLoc.x*.1, this.loc.y * 0.2 - world.cnvMainLoc.y*.1, this.diam * 0.2, Math.PI * 2, 0, false);
+  this.ctx2.stroke();
+  this.ctx2.fill();
 }
 
-Mover.prototype.getRandomColor = function(){
+Mover.prototype.getRandomColor = function () {
   //  List of hex color values for movers
   let colors = [
     "#7102AB",
@@ -69,6 +67,6 @@ Mover.prototype.getRandomColor = function(){
     "#78254e",
     "#787725"
   ];
-  let index = Math.floor(Math.random()*colors.length);
+  let index = Math.floor(Math.random() * colors.length);
   return colors[index];
 }

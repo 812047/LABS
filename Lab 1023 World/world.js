@@ -18,12 +18,13 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(28, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(280, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
   console.log(this.movers)
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
   this.scaleY = 0.1;
+  this.p = false;
 
   // add an event handler such that the a, s, w, d keys
   // will reposition the canvas within the world.
@@ -32,19 +33,25 @@ function World() {
       case "KeyW":
         if (world.cnvMainLoc.y + 100 > world.dims.top)
           world.cnvMainLoc.y -= 20;
+          this.p = true;
+          
         break;
       case "KeyS":
         if (world.cnvMainLoc.y + world.cnvMain.height - 100 < world.dims.bottom)
           world.cnvMainLoc.y += 20;
+          this.p = true;
         break;
       case "KeyA":
         if (world.cnvMainLoc.x + 30 > world.dims.left)
-          world.cnvMainLoc.x -= 100;
+          world.cnvMainLoc.x -= 20;
+          this.p = true;
+
         break;
       case "KeyD":
         if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
           world.cnvMainLoc.x += 20;
-        break;
+          this.p = true;
+
         break;
     }
   }, false);
@@ -53,75 +60,52 @@ function World() {
 
 // run the world in animation
 World.prototype.run = function () {
-
   this.ctxMain.strokeStyle = 'rgb(255, 0, 255)';//  color of outer border on Main canvas
   this.ctxMain.clearRect(0, 0, this.cnvMain.width, this.cnvMain.height);//  clear the canvas
-
-
   this.ctxMain.save();
-
-  this.ctxMain.translate(this.cnvMainLoc.x+this.dims.width/2, this.cnvMainLoc.y+this.dims.height/2);
-
-  this.ctxMini.clearRect(0,0, this.cnvMini.width, this.cnvMini.height);
+  this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);// this is important don't mess with this
   this.ctxMini.save();
-  this.scaleX = 0.1;
-  this.scaleY = 0.1;
-  this.ctxMini.translate(this.cnvMainLoc.x*this.scaleX, this.cnvMainLoc.y*this.scaleY);//this.cnvMainLoc.x+this.dims.width/2, this.cnvMainLoc.y+this.dims.height/2
-
-  //  center rect in the miniCanvas
+// this.ctxMini.translate((this.cnvMainLoc.x - this.dims.width / 2) * this.scaleX, (this.cnvMainLoc.y - this.dims.height / 2) * this.scaleY);
+  //this.ctxMini.translate(this.cnvMainLoc.x*this.scaleX, this.cnvMainLoc.y*this.scaleY);
+  this.ctxMain.translate((this.dims.width / 2 - 40), ((this.dims.height / 2)-30));
   this.ctxMini.strokeStyle = "rgb(255, 100, 100);"
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();
-  this.ctxMini.rect((this.dims.width/2)*this.scaleX-40, (this.dims.height/2)*this.scaleY-30, 80, 60);
+  this.ctxMini.rect((this.dims.width / 2 ) * this.scaleX- 40, (this.dims.height / 2) * this.scaleY-30, 80, 60);//moveable rectangle
   this.ctxMini.stroke();
-  //this.ctxMini.fill();
   this.ctxMini.closePath();
-
-
-
-
   this.ctxMain.restore();
   this.ctxMini.restore();
-
-
 
   this.ctxMain.save();
+  this.ctxMain.translate(-world.cnvMainLoc.x, -world.cnvMainLoc.y);
   this.ctxMini.save();
-  
-  this.ctxMain.translate(this.cnvMainLoc.x+this.dims.width/2, this.cnvMainLoc.y+this.dims.height/2);
-
-  
-  this.ctxMini.beginPath();
+  // this.ctxMain.translate(this.cnvMainLoc.x, this.cnvMainLoc.y);
+  this.ctxMini.beginPath();//making the axi of the mini
   this.ctxMini.strokeStyle = "rgb(255, 100, 100)";
   this.ctxMini.fillStyle = "rgb(255, 100, 100)";
-  this.ctxMini.rect(this.dims.width/2*this.scaleX, 0, 1, this.dims.height*this.scaleY);//mini axi
-  this.ctxMini.rect(0, this.dims.height/2*this.scaleY, this.dims.width*this.scaleX, 1);
-
+  this.ctxMini.rect(this.dims.width / 2 * this.scaleX, 0, 1, this.dims.height * this.scaleY);//mini axi
+  this.ctxMini.rect(0, this.dims.height / 2 * this.scaleY, this.dims.width * this.scaleX, 1);
   this.ctxMini.stroke();
   this.ctxMini.closePath();
   this.ctxMini.restore();
   this.ctxMini.save();
-    this.scaleX = 0.2;
-    this.scaleY = 0.2;
-  this.ctxMain.strokeStyle = "rgb(255, 100, 100)";
+
+
+  this.ctxMain.strokeStyle = "rgb(255, 100, 100)";//making the axi of large
   this.ctxMain.fillStyle = "rgb(255, 100, 100);";
   this.ctxMain.beginPath();
-  this.ctxMain.rect((this.dims.width/2)*this.scaleX, -this.dims.height/2, 2, this.dims.height*10);//main axi
-  this.ctxMain.rect(-this.dims.width/2, this.dims.height/2*this.scaleX, this.dims.width*10, 2);
-
+  this.ctxMain.rect((this.dims.width / 2) * this.scaleX*2, -this.dims.height / 2, 2, this.dims.height * 10);//main axi
+  this.ctxMain.rect(-this.dims.width / 2, this.dims.height / 2 * this.scaleX*2, this.dims.width * 10, 2);
   this.ctxMain.stroke();
   this.ctxMain.closePath();
-
-
   this.ctxMain.restore();
   this.ctxMini.restore();
-  for(let i = 0; i < this.movers.length; i ++){//run movers 
+  for (let i = 0; i < this.movers.length; i++) {//run movers 
     this.movers[i].run();
   }
 }
 
-//  Load mover array
-//  Load each context into each Mover
 World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
   for (let i = 0; i < numMovers; i++) {
     let diam = 10;

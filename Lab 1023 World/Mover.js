@@ -41,14 +41,14 @@ Mover.prototype.render = function () {
   this.ctx1.strokeStyle = this.clr;
   this.ctx1.fillStyle = this.clr;
   this.ctx1.beginPath();
-  this.ctx1.arc(this.loc.x-world.cnvMainLoc.x, this.loc.y-world.cnvMainLoc.y, this.diam, Math.PI * 2, 0, false);
+  this.ctx1.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
   this.ctx1.stroke();
   this.ctx1.fill();
 
   this.ctx2.strokeStyle = this.clr;
   this.ctx2.fillStyle = this.clr;
   this.ctx2.beginPath();
-  this.ctx2.arc(this.loc.x * 0.2 - world.cnvMainLoc.x*.1, this.loc.y * 0.2 - world.cnvMainLoc.y*.1, this.diam * 0.2, Math.PI * 2, 0, false);
+  this.ctx2.arc(this.loc.x * 0.2, this.loc.y * 0.2, this.diam * 0.2, Math.PI * 2, 0, false);
   this.ctx2.stroke();
   this.ctx2.fill();
 }

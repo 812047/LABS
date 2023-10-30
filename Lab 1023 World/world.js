@@ -30,7 +30,7 @@ function World() {
   window.addEventListener("keypress", function (event) {
     switch (event.code) {
       case "KeyW":
-      //  if (world.cnvMainLoc.y + 30 > world.dims.top)
+       // if (world.cnvMainLoc.y + 30 > world.dims.top)
           world.cnvMainLoc.y -= 20;
           this.p = true;
           
@@ -47,7 +47,7 @@ function World() {
 
         break;
       case "KeyD":
-       // if (world.cnvMainLoc.x + world.cnvMain.width - 30 < world.dims.right)
+       //if (world.cnvMainLoc.x + world.cnvMain.width - 30 < world.dims.right)
           world.cnvMainLoc.x += 20;
           this.p = true;
 
@@ -67,8 +67,7 @@ World.prototype.run = function () {
 
 
   this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX/2), this.cnvMainLoc.y*(this.scaleY/2));
-  console.log(this.cnvMainLoc.x*(this.scaleX/2));
-  console.log(this.cnvMainLoc.x*0.5)
+
   this.ctxMini.strokeStyle = "rgb(255, 100, 100);"
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();

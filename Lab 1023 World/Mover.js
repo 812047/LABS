@@ -41,7 +41,7 @@ Mover.prototype.render = function () {
   this.ctx1.strokeStyle = this.clr;
   this.ctx1.fillStyle = this.clr;
   this.ctx1.beginPath();
-  this.ctx1.arc(this.loc.x, this.loc.y, this.diam, Math.PI * 2, 0, false);
+  this.ctx1.arc(this.loc.x*2-(world.cnvMainLoc.x)/2, this.loc.y*2-(world.cnvMainLoc.y)/2, this.diam, Math.PI * 2, 0, false);
   this.ctx1.stroke();
   this.ctx1.fill();
 

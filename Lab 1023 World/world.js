@@ -18,7 +18,7 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(280, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(120, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
@@ -67,14 +67,14 @@ World.prototype.run = function () {
 
 
   this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX/2), this.cnvMainLoc.y*(this.scaleY/2));
-
-
+  console.log(this.cnvMainLoc.x*(this.scaleX/2));
+  console.log(this.cnvMainLoc.x*0.5)
   this.ctxMini.strokeStyle = "rgb(255, 100, 100);"
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();
 
-
-  this.ctxMini.rect(0,0, 80, 60)
+  this.ctxMini.rect(0,0, 80, 60);
+  //this.ctxMini.rect(160,120, 80, 60)
 
 
   this.ctxMini.stroke();
@@ -118,8 +118,8 @@ World.prototype.run = function () {
 World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
   for (let i = 0; i < numMovers; i++) {
     let diam = 10;
-    let x = Math.random() * (this.dims.width - 2 * diam) + diam - this.dims.width / 2;
-    let y = Math.random() * (this.dims.height - 2 * diam) + diam - this.dims.height / 2;
+    let x = (Math.random()*this.dims.width)*0.5;
+    let y = (Math.random()*this.dims.height)*0.5;
 
     let loc = new JSVector(x, y);
     let dx = Math.random() * 2 - 1;
@@ -128,5 +128,3 @@ World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
     this.movers.push(new Mover(loc, vel, diam, ctx1, ctx2, w, h));
   }
 }
-
-

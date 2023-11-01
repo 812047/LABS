@@ -64,7 +64,7 @@ World.prototype.run = function () {
   this.ctxMain.save();
   this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);// this is important don't mess with this
   this.ctxMini.save();
-  this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
+ // this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
   console.log(world.cnvMainLoc.x + "   " + world.cnvMainLoc.y)
 
    this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX)/2, this.cnvMainLoc.y*(this.scaleY)/2);
@@ -85,7 +85,7 @@ World.prototype.run = function () {
 
   this.ctxMain.save();
 
-  this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
+  this.ctxMain.translate(-this.cnvMainLoc.x/2, -this.cnvMainLoc.y/2);
 
   this.ctxMini.save();
   this.ctxMini.beginPath();
@@ -102,9 +102,8 @@ World.prototype.run = function () {
   this.ctxMain.strokeStyle = "rgb(255, 100, 100)";//making the axi of large
   this.ctxMain.fillStyle = "rgb(255, 100, 100);";
   this.ctxMain.beginPath();
-  this.ctxMain.rect(3200, 0, 2, this.dims.height * 2);//main axi
-  this.ctxMain.rect(0, 2400, this.dims.width * 2, 2);
- // this.ctxMain.rect(3200, 400 , 2, this.dims.height * 2)
+  this.ctxMain.rect(2000, 0, 2, this.dims.height * 2);//main axi
+  this.ctxMain.rect(0, 1500, this.dims.width * 2, 2);
   this.ctxMain.stroke();
   this.ctxMain.closePath();
   this.ctxMain.restore();

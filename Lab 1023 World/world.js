@@ -9,8 +9,8 @@ function World() {
   this.cnvMainLoc = new JSVector(0, 0);
 
   this.dims = {//  object leteral that prvides bounds for the entire world
-    top: -1500,
-    left: -2000,
+    top: 0,
+    left: 0,
     bottom: 1500,
     right: 2000,
     width: 4000,
@@ -18,39 +18,39 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(120, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(200, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
   this.scaleY = 0.1;
-  this.p = false;
 
   // add an event handler such that the a, s, w, d keys
   // will reposition the canvas within the world.
   window.addEventListener("keypress", function (event) {
     switch (event.code) {
       case "KeyW":
-       // if (world.cnvMainLoc.y + 30 > world.dims.top)
+       if (world.cnvMainLoc.y > world.dims.top){
           world.cnvMainLoc.y -= 20;
-          this.p = true;
+       }
           
         break;
       case "KeyS":
-       // if (world.cnvMainLoc.y + world.cnvMain.height - 30 < world.dims.bottom)
+       if ((world.cnvMainLoc.y/3.2 < world.dims.bottom)){
           world.cnvMainLoc.y += 20;
-          this.p = true;
+       }
         break;
       case "KeyA":
-       // if (world.cnvMainLoc.x + 30 > world.dims.left)
-          world.cnvMainLoc.x -= 20;
-          this.p = true;
-
+        if (world.cnvMainLoc.x> world.dims.left){
+       
+        world.cnvMainLoc.x -= 20;
+        }
         break;
       case "KeyD":
-       //if (world.cnvMainLoc.x + world.cnvMain.width - 30 < world.dims.right)
-          world.cnvMainLoc.x += 20;
-          this.p = true;
+       if ((world.cnvMainLoc.x/3.2 < world.dims.right)){
+       
+        world.cnvMainLoc.x += 20;
 
+       }
         break;
     }
   }, false);
@@ -64,16 +64,18 @@ World.prototype.run = function () {
   this.ctxMain.save();
   this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);// this is important don't mess with this
   this.ctxMini.save();
+  this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
+  console.log(world.cnvMainLoc.x + "   " + world.cnvMainLoc.y)
 
-
-  this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX/2), this.cnvMainLoc.y*(this.scaleY/2));
+   this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX)/2, this.cnvMainLoc.y*(this.scaleY)/2);
 
   this.ctxMini.strokeStyle = "rgb(255, 100, 100);"
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();
 
-  this.ctxMini.rect(0,0, 80, 60);
-  //this.ctxMini.rect(160,120, 80, 60)
+//  this.ctxMini.rect(this.dims.width/20, this.dims.height/20, 80, 60);
+  this.ctxMini.rect(0, 0, 80, 60);
+
 
 
   this.ctxMini.stroke();
@@ -83,12 +85,10 @@ World.prototype.run = function () {
 
   this.ctxMain.save();
 
-  this.ctxMain.translate(-this.cnvMainLoc.x*0.50, -this.cnvMainLoc.y*0.50);
-
+  this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
 
   this.ctxMini.save();
-  // this.ctxMain.translate(this.cnvMainLoc.x, this.cnvMainLoc.y);
-  this.ctxMini.beginPath();//making the axi of the mini
+  this.ctxMini.beginPath();
   this.ctxMini.strokeStyle = "rgb(255, 100, 100)";
   this.ctxMini.fillStyle = "rgb(255, 100, 100)";
   this.ctxMini.rect(this.dims.width / 2 * this.scaleX, 0, 1, this.dims.height * this.scaleY);//mini axi
@@ -102,9 +102,9 @@ World.prototype.run = function () {
   this.ctxMain.strokeStyle = "rgb(255, 100, 100)";//making the axi of large
   this.ctxMain.fillStyle = "rgb(255, 100, 100);";
   this.ctxMain.beginPath();
-  this.ctxMain.rect((this.dims.width / 2), (-this.dims.height / 2), 2, this.dims.height * 10);//main axi
- 
-  this.ctxMain.rect(-this.dims.width / 2, this.dims.height / 2, this.dims.width * 10, 2);
+  this.ctxMain.rect(3200, 0, 2, this.dims.height * 2);//main axi
+  this.ctxMain.rect(0, 2400, this.dims.width * 2, 2);
+ // this.ctxMain.rect(3200, 400 , 2, this.dims.height * 2)
   this.ctxMain.stroke();
   this.ctxMain.closePath();
   this.ctxMain.restore();
@@ -117,12 +117,14 @@ World.prototype.run = function () {
 World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
   for (let i = 0; i < numMovers; i++) {
     let diam = 10;
-    let x = (Math.random()*this.dims.width)*0.5;
-    let y = (Math.random()*this.dims.height)*0.5;
-
+    let x = (Math.random()*this.dims.width/2) 
+    let y = (Math.random()*this.dims.height/2) 
+    //let x = 1000;
+   // let y = 750;
     let loc = new JSVector(x, y);
-    let dx = Math.random() * 2 - 1;
-    let dy = Math.random() * 2 - 1;
+    let v = 0.5
+    let dx = Math.random() * v - (v/2);
+    let dy = Math.random() * v - (v/2);
     let vel = new JSVector(dx, dy);
     this.movers.push(new Mover(loc, vel, diam, ctx1, ctx2, w, h));
   }

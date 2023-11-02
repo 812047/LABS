@@ -9,8 +9,8 @@ function World() {
   this.cnvMainLoc = new JSVector(0, 0);
 
   this.dims = {//  object leteral that prvides bounds for the entire world
-    top: 0,
-    left: 0,
+    top: -1500,
+    left: -2000,
     bottom: 1500,
     right: 2000,
     width: 4000,
@@ -18,7 +18,7 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(200, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(400, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
@@ -29,24 +29,24 @@ function World() {
   window.addEventListener("keypress", function (event) {
     switch (event.code) {
       case "KeyW":
-       if (world.cnvMainLoc.y > world.dims.top){
+       if (world.cnvMainLoc.y/2 > world.dims.top){
           world.cnvMainLoc.y -= 20;
        }
           
         break;
       case "KeyS":
-       if ((world.cnvMainLoc.y/3.2 < world.dims.bottom)){
+       if ((world.cnvMainLoc.y - 300 < world.dims.bottom)){
           world.cnvMainLoc.y += 20;
        }
         break;
       case "KeyA":
-        if (world.cnvMainLoc.x> world.dims.left){
+        if (world.cnvMainLoc.x/2 > world.dims.left){
        
         world.cnvMainLoc.x -= 20;
         }
         break;
       case "KeyD":
-       if ((world.cnvMainLoc.x/3.2 < world.dims.right)){
+       if ((world.cnvMainLoc.x - 400 < world.dims.right)){
        
         world.cnvMainLoc.x += 20;
 
@@ -73,8 +73,8 @@ World.prototype.run = function () {
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();
 
-//  this.ctxMini.rect(this.dims.width/20, this.dims.height/20, 80, 60);
-  this.ctxMini.rect(0, 0, 80, 60);
+  this.ctxMini.rect(this.dims.width/20, this.dims.height/20, 80, 60);
+  //this.ctxMini.rect(0, 0, 80, 60);
 
 
 
@@ -102,8 +102,8 @@ World.prototype.run = function () {
   this.ctxMain.strokeStyle = "rgb(255, 100, 100)";//making the axi of large
   this.ctxMain.fillStyle = "rgb(255, 100, 100);";
   this.ctxMain.beginPath();
-  this.ctxMain.rect(2000, 0, 2, this.dims.height * 2);//main axi
-  this.ctxMain.rect(0, 1500, this.dims.width * 2, 2);
+  this.ctxMain.rect(0, this.dims.left*2, 2, this.dims.height * 2);//main axi
+  this.ctxMain.rect(this.dims.top-500, 0, this.dims.width * 2, 2);
   this.ctxMain.stroke();
   this.ctxMain.closePath();
   this.ctxMain.restore();
@@ -116,10 +116,9 @@ World.prototype.run = function () {
 World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
   for (let i = 0; i < numMovers; i++) {
     let diam = 10;
-    let x = (Math.random()*this.dims.width/2) 
+   let x = (Math.random()*this.dims.width/2) 
     let y = (Math.random()*this.dims.height/2) 
-    //let x = 1000;
-   // let y = 750;
+
     let loc = new JSVector(x, y);
     let v = 0.5
     let dx = Math.random() * v - (v/2);

@@ -18,7 +18,7 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(400, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(673, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
@@ -64,17 +64,15 @@ World.prototype.run = function () {
   this.ctxMain.save();
   this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);// this is important don't mess with this
   this.ctxMini.save();
- // this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
-  console.log(world.cnvMainLoc.x + "   " + world.cnvMainLoc.y)
 
-   this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX)/2, this.cnvMainLoc.y*(this.scaleY)/2);
+
+   this.ctxMini.translate(this.cnvMainLoc.x*(this.scaleX)/2, this.cnvMainLoc.y*(this.scaleY)/2);//translation of Mini canvi
 
   this.ctxMini.strokeStyle = "rgb(255, 100, 100);"
   this.ctxMini.fillStyle = "rgba(255, 100, 100, 0);"
   this.ctxMini.beginPath();
 
   this.ctxMini.rect(this.dims.width/20, this.dims.height/20, 80, 60);
-  //this.ctxMini.rect(0, 0, 80, 60);
 
 
 
@@ -85,7 +83,7 @@ World.prototype.run = function () {
 
   this.ctxMain.save();
 
-  this.ctxMain.translate(-this.cnvMainLoc.x/2, -this.cnvMainLoc.y/2);
+  this.ctxMain.translate(-this.cnvMainLoc.x/2, -this.cnvMainLoc.y/2);//A lot of stuff is off by 2x bc I just halved the speed of the mini rectangle
 
   this.ctxMini.save();
   this.ctxMini.beginPath();

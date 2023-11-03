@@ -18,7 +18,7 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(673, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);
+  this.loadMovers(673, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);//why is this 673
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
@@ -35,7 +35,7 @@ function World() {
           
         break;
       case "KeyS":
-       if ((world.cnvMainLoc.y - 300 < world.dims.bottom)){
+       if ((world.cnvMainLoc.y - 300 < world.dims.bottom)){//300 is the mini rect height
           world.cnvMainLoc.y += 20;
        }
         break;
@@ -46,7 +46,7 @@ function World() {
         }
         break;
       case "KeyD":
-       if ((world.cnvMainLoc.x - 400 < world.dims.right)){
+       if ((world.cnvMainLoc.x - 400 < world.dims.right)){//400 is the mini rect width
        
         world.cnvMainLoc.x += 20;
 
@@ -97,7 +97,7 @@ World.prototype.run = function () {
   this.ctxMini.save();
 
 
-  this.ctxMain.strokeStyle = "rgb(255, 100, 100)";//making the axi of large
+  this.ctxMain.strokeStyle = "rgb(255, 100, 100)";
   this.ctxMain.fillStyle = "rgb(255, 100, 100);";
   this.ctxMain.beginPath();
   this.ctxMain.rect(0, this.dims.left*2, 2, this.dims.height * 2);//main axi
@@ -107,7 +107,7 @@ World.prototype.run = function () {
   this.ctxMain.restore();
   this.ctxMini.restore();
   for (let i = 0; i < this.movers.length; i++) {//run movers 
-    this.movers[i].run();
+    this.movers[i].run();//idk why its right here
   }
 }
 
@@ -118,7 +118,7 @@ World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
     let y = (Math.random()*this.dims.height/2) 
 
     let loc = new JSVector(x, y);
-    let v = 0.5
+    let v = 0.5;//one value still does the same thing
     let dx = Math.random() * v - (v/2);
     let dy = Math.random() * v - (v/2);
     let vel = new JSVector(dx, dy);

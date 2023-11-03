@@ -45,13 +45,15 @@ function loadSnakes(n) {
     let vel = new JSVector(vx, vy);
 
     let nOfC = Math.random()*5+8;
-    let sDiam = Math.random()*15+10;
+    //let sWidth = Math.random()*15+50;
+    //let sHeight = Math.random()*20+20;
 
+    let sWidth = 40; sHeight = 40;
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
-    let c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
-    snakes.push(new Snake(loc, vel, nOfC, sDiam, c));
+    let c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.12 + ')';
+    snakes.push(new Snake(loc, vel, nOfC, sWidth, sHeight, c));
     
   }
 }

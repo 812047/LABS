@@ -1,9 +1,11 @@
-function Snake(loc, vel, nOfC, sDiam, c) {
+function Snake(loc, vel, nOfC, sWidth, sHeight, c) {
     this.loc = loc;//starting location of the snake
     this.vel = vel;//velocity of the snake
     this.nOfC = nOfC;//number of total circles on a snake
-    this.sDiam = sDiam;// the starting diam on the head of the snake
+    this.sWidth = sWidth;// the starting width on the head of the snake
+    this.sHeight = sHeight;
     this.c = c;//color of snake
+    this.lineSegments = [];
 }
 
 Snake.prototype.run = function () {
@@ -13,20 +15,25 @@ Snake.prototype.run = function () {
 }
 
 Snake.prototype.update = function () {
-
+    this.loc.add(this.vel);
+    
 }
 Snake.prototype.render = function () {
     let ctx = context;
     ctx.strokeStyle = this.c;//color 
     ctx.fillStyle = this.c;//color
-   // let xCDist;//x offset of cirlces
-   // let yCDist;//y offset of circles
-    for (let i = 0; i < this.nOfC; i++) {//creates this.nOfC number of circles
+
+    for (let i = 0; i < this.nOfC; i++) {
         ctx.beginPath();
-        ctx.arc(this.loc.x + (this.sDiam * (this.nOfC - i)),
-            this.loc.y + (this.sDiam * (this.nOfC - i)),
-                this.sDiam * ((this.nOfC - i) / this.nOfC),//gradually the circles get smaller
-                Math.PI * 2, 0, false);//normal stuff
+        this.lineSegments.push(ctx.roundRect(
+            this.loc.x
+            + 3 * (this.sWidth * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
+            this.loc.y
+            + 3 * (this.sHeight * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
+            this.sWidth * ((this.nOfC / (this.nOfC + i))),//gradual decrease in value
+            this.sHeight * ((this.nOfC / (this.nOfC + i))),//gradual decrese in value
+            45));//this just straight up makes them circles
+
         ctx.stroke();
         ctx.fill();
     }

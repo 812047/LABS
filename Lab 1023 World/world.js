@@ -18,7 +18,7 @@ function World() {
   }
   this.movers = [];
 
-  this.loadMovers(673, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);//why is this 673
+  this.loadMovers(1, this.ctxMain, this.ctxMini, this.dims.width, this.dims.height);//why is this 673
 
   //reduce world to fit inside of mini Canvas
   this.scaleX = 0.1;
@@ -108,6 +108,7 @@ World.prototype.run = function () {
   this.ctxMini.restore();
   for (let i = 0; i < this.movers.length; i++) {//run movers 
     this.movers[i].run();//idk why its right here
+
   }
 }
 
@@ -118,7 +119,7 @@ World.prototype.loadMovers = function (numMovers, ctx1, ctx2, w, h) {
     let y = (Math.random()*this.dims.height/2) 
 
     let loc = new JSVector(x, y);
-    let v = 0.5;//one value still does the same thing
+    let v = 12;//one value still does the same thing
     let dx = Math.random() * v - (v/2);
     let dy = Math.random() * v - (v/2);
     let vel = new JSVector(dx, dy);

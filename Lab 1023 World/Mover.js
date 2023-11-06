@@ -23,14 +23,15 @@ Mover.prototype.update = function () {
   this.vel.add(this.acc);
   this.vel.limit(3);
   this.loc.add(this.vel);
+  console.log(this.loc.x + "   " + this.loc.y)
 }
 
 
 Mover.prototype.checkEdges = function () {
-  if (this.loc.x >= world.dims.width / 2 || this.loc.x <= -world.dims.width / 2) {
+  if (this.loc.x >= 2000 || this.loc.x <= 0 ) {
     this.vel.x *= -1;
   }
-  if (this.loc.y >= world.dims.height / 2 || this.loc.y < -world.dims.height / 2) {
+  if (this.loc.y >= 1500 || this.loc.y < 0 ) {
     this.vel.y *= -1;
   }
 }

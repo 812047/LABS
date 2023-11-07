@@ -41,7 +41,7 @@ function loadSnakes(n) {
     let x = (Math.random()*canvas.width/2 + canvas.width/4);
     let y = (Math.random()*canvas.height/2 + canvas.height/4);
     let loc = new JSVector(x, y);
-    let v = 8;
+    let v = 4;
     let vx = Math.random()*v-(v/2);
     let vy = Math.random()*v-(v/2);
     let vel = new JSVector(vx, vy);
@@ -54,7 +54,7 @@ function loadSnakes(n) {
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
-    let c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.44 + ')';
+    let c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.01 + ')';
     snakes.push(new Snake(loc, vel, nOfC, sWidth, sHeight, c));
     
   }

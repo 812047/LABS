@@ -12,28 +12,30 @@ Segment.prototype.run = function () {
 }
 
 Segment.prototype.update = function () {
+
 }
 Segment.prototype.render = function () {
     let ctx = context;
-    for (let i = 0; i < this.nOfC; i++) {
 
         ctx.strokeStyle = this.c;//color 
         ctx.fillStyle = this.c;//color
+       
         ctx.beginPath();
-        ctx.roundRect(
-            this.loc.x
-            + 3 * (this.sWidth * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
-            this.loc.y
-            + 3 * (this.sHeight * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
-            this.sWidth * ((this.nOfC / (this.nOfC + i))),//gradual decrease in value
-            this.sHeight * ((this.nOfC / (this.nOfC + i))),//gradual decrese in value
-            45);//this just straight up makes them circles)
-        // console.log(this.loc.x + "   " + this.loc.y)
-
+        // ctx.roundRect(
+        //     this.loc.x
+        //     + 4 * (this.sWidth * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
+        //     this.loc.y
+        //     + 4 * (this.sHeight * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
+        //     this.sWidth * ((this.nOfC / (this.nOfC + i))),//gradual decrease in value
+        //     this.sHeight * ((this.nOfC / (this.nOfC + i))),//gradual decrese in value
+        //     45);//this just straight up makes them circles)
+        // // console.log(this.loc.x + "   " + this.loc.y)
+       // ctx.roundRect(this.loc.x, this.loc.y , this.sWidth, this.sHeight, 45)
+        
         ctx.stroke();
         ctx.fill();
-
+        
     }
-}
+
 
 

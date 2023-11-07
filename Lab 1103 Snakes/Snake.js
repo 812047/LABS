@@ -9,46 +9,30 @@ function Snake(loc, vel, nOfC, sWidth, sHeight, c) {
 }
 
 Snake.prototype.run = function () {
-    this.update();
     this.render();
+    this.update();
+
     this.runSegment();
     this.checkEdges();
 }
 
 Snake.prototype.update = function () {
-this.loc.add(this.vel);
+  //  console.log(this.lineSegments[0].loc);
+     this.loc.add(this.vel)
 
 }
 Snake.prototype.render = function () {
-
-    // let ctx = context;
-     for (let i = 0; i < this.nOfC; i++) {
-    
-    // ctx.strokeStyle = this.c;//color 
-    // ctx.fillStyle = this.c;//color
-
-
-    //     ctx.beginPath();
-
-    //  ctx.roundRect(
-    //         this.loc.x
-    //         + 3 * (this.sWidth * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
-    //         this.loc.y
-    //         + 3 * (this.sHeight * ((this.nOfC / (this.nOfC + i)))),//offset is scuffed fix later
-    //         this.sWidth * ((this.nOfC / (this.nOfC + i))),//gradual decrease in value
-    //         this.sHeight * ((this.nOfC / (this.nOfC + i))),//gradual decrese in value
-    //         45);//this just straight up makes them circles)
-    //     // console.log(this.loc.x + "   " + this.loc.y)
-
-    //     ctx.stroke();
-    //     ctx.fill();
-    this.lineSegments[i] = new Segment(this.loc, this.nOfC, this.sWidth, this.sHeight, this.c)
-    //console.log(this.loc + " " + this.nOfC + " " + this.sWidth + " " + this.sHeight + " " + this.c)
-    //console.log(this.lineSegments[i])
+     for (let i = 0; i < snakes.length; i++) {
+        for (let j = 0; i < this.nOfC; j++) {
+    this.lineSegments[j] = new Segment(this.loc, this.nOfC, this.sWidth, this.sHeight, this.c)
+        }
+   
     }
     
 }
-
+Snake.prototype.loadSegment = function () {
+    
+}
 Snake.prototype.runSegment = function () {
     for (let i = 0; i < this.lineSegments.length; i++) {
       this.lineSegments[i].run();

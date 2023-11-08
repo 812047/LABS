@@ -40,7 +40,7 @@ function JSVector(x = 0, y = 0) {
   JSVector.prototype.add = function (v2) {
     this.x += v2.x;
     this.y += v2.y;
-    // return this;
+     return this;
   }
   
   // Subtract another vector from this vector

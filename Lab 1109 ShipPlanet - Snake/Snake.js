@@ -67,7 +67,7 @@ Snake.prototype.render = function () {
         ctx.moveTo(0 , this.lineSegments[i].y);
         ctx.lineTo(0,
         this.lineSegments[i+1].y);
-        ctx.lineWidth = 15-i;
+        ctx.lineWidth = 15;
         ctx.lineCap = "round";
       
         ctx.stroke();

@@ -20,15 +20,15 @@ Planet.prototype.run = function () {
 Planet.prototype.update = function () {
      let d = this.loc.distance(snakes.loc)
 
-    // if (d < 100) {
-    //     this.acc = JSVector.subGetNew(this.loc, snakes.loc);
-
-    //     this.acc.multiply(0.00006);
-    //     this.vel.add(this.acc);
-    //     this.vel.limit(1.8)
-    //     this.loc.add(this.vel);
+    if (d < 200) {
+        this.acc = JSVector.subGetNew(this.loc, snakes.loc);
+        this.acc.normalize();
+        this.acc.multiply(0.00026);
+        this.vel.add(this.acc);
+        this.vel.limit(.2)
+        this.loc.add(this.vel);
        
-    // }
+    }
      if (d < 50) {
          this.loc.x = Math.random() * canvas.width;
          this.loc.y = Math.random() * canvas.height;

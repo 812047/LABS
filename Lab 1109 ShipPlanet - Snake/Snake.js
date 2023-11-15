@@ -7,8 +7,8 @@ function Snake(x, y) {
     // let blue = Math.floor(Math.random() * 100);
     // this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
     this.lineSegments = [];
-    this.numberOfSegments = 30;
-    this.lineSegmentsLength = 32;
+    this.numberOfSegments = 400;
+    this.lineSegmentsLength = 44;
     for (let i = 1; i < this.numberOfSegments-1; i++) {
         this.lineSegments.push(new JSVector(0, 0));
 
@@ -19,7 +19,6 @@ function Snake(x, y) {
 
 Snake.prototype.run = function () {
     this.update();
-    this.render();
     this.checkEdges();
 }
 
@@ -30,7 +29,7 @@ Snake.prototype.update = function () {
     this.vel = this.acc;
 
     this.vel.add(this.acc);
-    this.vel.limit(3)
+    this.vel.limit(5)
     this.loc.add(this.vel);
 
     this.updateSegments(0, this.loc);

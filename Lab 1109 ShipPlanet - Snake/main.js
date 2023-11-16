@@ -6,8 +6,8 @@ let snakes;
 function init() {
   canvas = document.getElementById("cnv");
   context = canvas.getContext("2d");
-snakes = new Snake(200, 400);//the third value is i-1 # of lineSegments
-planets = new Planet(400,400,40)
+snakes = new Snake(Math.random()*1000+ 500, Math.random()*750+ 375);//the third value is i-1 # of lineSegments
+planets = new Planet(400,400,50)
  
   animate();
 

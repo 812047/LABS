@@ -1,6 +1,5 @@
-
-//  Eric Ettlin
-//  231120
+//Logan Thomas
+//11202023
 //  Flocking Lab
 
 let game;   // a single global object

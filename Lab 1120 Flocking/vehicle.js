@@ -63,14 +63,14 @@ Vehicle.prototype.separate = function (v) {
     sum.multiply(this.maxSpeed);
     sep = sep.sub(sum, this.vel);
     sep.limit(this.maxForce);
-    //applyForce(sep);
   }
+  console.log("sep")
   return sep;
 }
 
 Vehicle.prototype.align = function (v) {
   let count = 0;
-  let neighbordist = 20;
+  let neighbordist = 50;
   let sum = new JSVector(0, 0);
   let steer = new JSVector(0, 0);
   for (let i = 0; i < v.length; i++) {
@@ -108,6 +108,7 @@ Vehicle.prototype.cohesion = function (v) {
   if( count > 0){
     sum.divide(count);
     coh.equals(sum);//this is very useless why don't you just make this into one variable?
+    //yes .equals is a function for some reason
   }
   return coh;
 }

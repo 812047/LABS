@@ -1,6 +1,6 @@
 
 window.addEventListener("load", init);
-
+window.addEventListener("click", move);
 
 // global variables
 let canvas, context;
@@ -18,7 +18,10 @@ function init() {
 
 }
 
-
+function move(){
+   // console.log("b")
+    Bubble.prototype.move();
+ }
 // every animation cycle
 function animate() {
     // erase the HTMLCanvasElement

@@ -1,5 +1,5 @@
 //  Bubble constructor function +++++++++++++++++++++++++++++
-function Bubble(x, y, dx, dy, diam) {
+function Bubble(x, y, dx, dy) {
   this.loc = new JSVector(x, y); this.vel = new JSVector(dx, dy); this.acc = new JSVector(0, 0);
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -7,6 +7,8 @@ function Bubble(x, y, dx, dy, diam) {
   this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
 
 }
+//++++++++++++++++++++++++++++++  end world constructor
+
 
 
 Bubble.prototype.run = function () {
@@ -22,7 +24,7 @@ Bubble.prototype.collectMiddle = function () {
   for (let i = 0; i < bubbles.length; i++) {
     this.acc = JSVector.subGetNew(new JSVector(1000, 750), this.loc);
     this.acc.normalize();
-    this.acc.multiply(.08);
+    this.acc.multiply(.8);
     this.vel.add(this.acc);
     this.vel.limit(.08);//this is so scuffed
     this.loc.add(this.vel);
@@ -60,17 +62,17 @@ Bubble.prototype.update = function () {
       if (i != j) {
         let d = this.loc.distance(bubbles[j].loc)
 
-        if ((d < (20) + 0) && (d != 0)) {//if they touch and its not itself repel
+        if ((d < 20) && (d != 0)) {//I have no idea
           this.acc = JSVector.subGetNew(this.loc, bubbles[j].loc);
           this.acc.normalize();
-          this.acc.multiply(.08);
-          this.vel.limit(.08);//this is so scuffed
+          this.acc.multiply(.8);
+          this.vel.limit(2);//this is so scuffed
           this.vel.add(this.acc);
           this.loc.add(this.vel);
           bubbles[j].acc = JSVector.subGetNew(bubbles[j].loc, this.loc);
           bubbles[j].acc.normalize();
-          bubbles[j].acc.multiply(.08);
-          bubbles[j].vel.limit(.08);
+          bubbles[j].acc.multiply(.8);
+          bubbles[j].vel.limit(2);
           bubbles[j].vel.add(bubbles[j].acc);
           bubbles[j].loc.add(bubbles[j].vel)
         }
@@ -78,36 +80,44 @@ Bubble.prototype.update = function () {
 
     }
 
-
+    
   }
   this.loc.add(this.vel)
+
 }
 
+Bubble.prototype.move = function () {
+
+}
 Bubble.prototype.hive = function () {
+
   for (let i = 0; i < bubbles.length; i++) {
     let totalC = 0;
     let avgV = new JSVector(0, 0);
     for (let j = 0; j < bubbles.length; j++) {
 
-      if (i != j) {
+      //if (i != j) {
         let d = this.loc.distance(bubbles[j].loc);
 
-        if (d < 100) {
+        if (d < 80) {
           totalC++;
           avgV.add(bubbles[j].vel);
+        
         }
 
-      }
+     // }
     }
     if (totalC > 0) {
+  
       avgV.divide(totalC)
-      this.acc.equals(avgV);
-    //  this.acc.normalize();
-      this.acc.multiply(0.04)
+      this.acc.add(avgV);
+    this.acc.normalize();
+    this.acc.multiply(0.01)
       this.vel.add(this.acc)
-      this.vel.limit(0.05);
-
+   
+     this.vel.limit(0.012)
       this.loc.add(this.vel);
+      
     }
   }
 

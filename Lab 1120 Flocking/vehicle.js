@@ -3,7 +3,7 @@ function Vehicle(loc, vel) {
   this.loc = new JSVector(loc.x, loc.y);
   this.vel = new JSVector(vel.x, vel.y);
   this.acc = new JSVector(0, 0);
-  this.desiredSep = 20;//  desired separation between vehicles
+  this.desiredSep = 30;//  desired separation between vehicles
   this.scl = 10;
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -33,7 +33,7 @@ Vehicle.prototype.flock = function (vehicles) {
   let aliMult = document.getElementById("slider4").value;;  // Get slider VAlue%%%%%%%%%%%%%%%%%%
   let cohMult = document.getElementById("slider5").value;;    // Get slider VAlue%%%%%%%%%%%%%%%%%%
   //  calculate three forces
-  sep.multiply(sepMult);
+  sep.multiply(sepMult*3);
   ali.multiply(aliMult);
   coh.multiply(cohMult);
   //  add each of these to flockForce
@@ -56,11 +56,11 @@ Vehicle.prototype.separate = function (v) {
       sum.add(diff)
       count++;
     }
-    
+
   }
   if (count > 0) {
     sum.divide(count);
-    
+
   }
 
   return sum;
@@ -92,35 +92,41 @@ Vehicle.prototype.align = function (v) {
 
 
 Vehicle.prototype.cohesion = function (v) {
-  let neighbordist = 20;
-  let sum = new JSVector(0,0);
+  let neighbordist = 50;
+  let sum = new JSVector(0, 0);
   let count = 0;
-  for(let i = 0; i < v.length; i ++){
+  for (let i = 0; i < v.length; i++) {
     let d = this.loc.distance(v[i].loc)
- 
-    if((d > 0) && (d < neighbordist)) {
+
+    if ((d > 0) && (d < neighbordist)) {
       sum.add(v[i].loc);
       count++;
     }
   }
-  if( count > 0){
+  if (count > 0) {
     sum.divide(count);
-
+    return this.seek(sum);
+  } else {
+    return new JSVector(0, 0)
   }
-  return this.seek(sum);
+
 }
 
 Vehicle.prototype.seek = function (target) {
+
   // A vector pointing from the location to the target
   let desired = JSVector.subGetNew(target, this.loc);
+  desired.normalize();
+  desired.multiply(this.maxSpeed);
   let steer = JSVector.subGetNew(desired, this.vel);
+  steer.limit(this.maxForce);
   return steer;
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
 
 Vehicle.prototype.update = function () {
   this.vel.add(this.acc);
-  this.vel.limit(this.maxSpeed*0.5);
+  this.vel.limit(this.maxSpeed * 0.5);
   this.loc.add(this.vel);
 }
 

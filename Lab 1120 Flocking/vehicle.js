@@ -4,7 +4,7 @@ function Vehicle(loc, vel) {
   this.vel = new JSVector(vel.x, vel.y);
   this.acc = new JSVector(0, 0);
   this.desiredSep = 20;//  desired separation between vehicles
-  this.scl = 5;
+  this.scl = 10;
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
   let blue = Math.floor(Math.random() * 256);
@@ -40,32 +40,30 @@ Vehicle.prototype.flock = function (vehicles) {
   flockForce.add(sep);
   flockForce.add(ali);
   flockForce.add(coh);
+
   this.acc.add(flockForce);
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
 Vehicle.prototype.separate = function (v) {
   let count = 0;
-  let diff = new JSVector(0, 0);
+
   let sum = new JSVector(0, 0);
-  let sep = new JSVector(0, 0);
   for (let i = 0; i < v.length; i++) {
     let d = this.loc.distance(v[i].loc);
     if (d > 0 && d < this.desiredSep) {
-      diff = diff.sub(this.loc, v[i].loc);
+      let diff = JSVector.subGetNew(this.loc, v[i].loc);
       diff.normalize();
       sum.add(diff)
       count++;
     }
+    
   }
   if (count > 0) {
     sum.divide(count);
-    sum.normalize();
-    sum.multiply(this.maxSpeed);
-    sep = sep.sub(sum, this.vel);
-    sep.limit(this.maxForce);
+    
   }
-  console.log("sep")
-  return sep;
+
+  return sum;
 }
 
 Vehicle.prototype.align = function (v) {
@@ -84,7 +82,7 @@ Vehicle.prototype.align = function (v) {
     sum.divide(count);
     sum.normalize();
     sum.multiply(this.maxSpeed);
-    steer = steer.sub(sum, this.vel)
+    steer = JSVector.subGetNew(sum, this.vel)
     steer.limit(this.maxForce);
     return steer;
   } else {
@@ -94,12 +92,12 @@ Vehicle.prototype.align = function (v) {
 
 
 Vehicle.prototype.cohesion = function (v) {
-  let neighbordist = 50;
+  let neighbordist = 20;
   let sum = new JSVector(0,0);
   let count = 0;
-  let coh = new JSVector(0, 0);
   for(let i = 0; i < v.length; i ++){
     let d = this.loc.distance(v[i].loc)
+ 
     if((d > 0) && (d < neighbordist)) {
       sum.add(v[i].loc);
       count++;
@@ -107,10 +105,9 @@ Vehicle.prototype.cohesion = function (v) {
   }
   if( count > 0){
     sum.divide(count);
-    coh.equals(sum);//this is very useless why don't you just make this into one variable?
-    //yes .equals is a function for some reason
+
   }
-  return coh;
+  return this.seek(sum);
 }
 
 Vehicle.prototype.seek = function (target) {
@@ -123,7 +120,7 @@ Vehicle.prototype.seek = function (target) {
 
 Vehicle.prototype.update = function () {
   this.vel.add(this.acc);
-  this.vel.limit(1);
+  this.vel.limit(this.maxSpeed);
   this.loc.add(this.vel);
 }
 
@@ -146,6 +143,7 @@ Vehicle.prototype.render = function () {
   ctx.lineTo(-this.scl, this.scl);
   ctx.lineTo(0, 0);
   ctx.lineTo(this.scl, this.scl);
+
   ctx.closePath();
   ctx.stroke();
   ctx.fill();

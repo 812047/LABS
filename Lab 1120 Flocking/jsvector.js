@@ -136,7 +136,7 @@ JSVector.prototype.toString = function() {
     var m = this.getMagnitude().toFixed(2);
     var a = this.getDirection().toFixed(2);
 
-    //return("x:" + x + ", y: " + y + ", mag: " + m + ", a: " + a);
+    return("x:" + x + ", y: " + y + ", mag: " + m + ", a: " + a);
 
-    return(` x: ${x_}, y: ${y_}, mag: ${m}, angle: ${a}`);
+  //  return(` x: ${x_}, y: ${y_}, mag: ${m}, angle: ${a}`);
 }

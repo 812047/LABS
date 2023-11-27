@@ -33,6 +33,6 @@ function GameArea(){
        this.tiles[i].setAttribute("class", "tile"); // all tiles have the same class attribute
        // append a text node child to the tile
        this.tiles[i].appendChild(document.createTextNode("Tile " + (i + 1)));
-       //this.t1Text.style.padding = "10px";
+       this.t1Text.style.padding = "10px";
     }
 }

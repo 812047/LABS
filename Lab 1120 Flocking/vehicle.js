@@ -120,7 +120,7 @@ Vehicle.prototype.seek = function (target) {
 
 Vehicle.prototype.update = function () {
   this.vel.add(this.acc);
-  this.vel.limit(this.maxSpeed);
+  this.vel.limit(this.maxSpeed*0.5);
   this.loc.add(this.vel);
 }
 

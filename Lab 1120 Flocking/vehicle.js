@@ -3,7 +3,7 @@ function Vehicle(loc, vel) {
   this.loc = new JSVector(loc.x, loc.y);
   this.vel = new JSVector(vel.x, vel.y);
   this.acc = new JSVector(0, 0);
-  this.desiredSep = 30;//  desired separation between vehicles
+  this.desiredSep = 20;//  desired separation between vehicles
   this.scl = 10;
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -60,7 +60,6 @@ Vehicle.prototype.separate = function (v) {
   }
   if (count > 0) {
     sum.divide(count);
-
   }
 
   return sum;
@@ -117,7 +116,7 @@ Vehicle.prototype.seek = function (target) {
   // A vector pointing from the location to the target
   let desired = JSVector.subGetNew(target, this.loc);
   desired.normalize();
-  desired.multiply(this.maxSpeed);
+  desired.multiply(this.maxSpeed*.3);
   let steer = JSVector.subGetNew(desired, this.vel);
   steer.limit(this.maxForce);
   return steer;
@@ -126,7 +125,7 @@ Vehicle.prototype.seek = function (target) {
 
 Vehicle.prototype.update = function () {
   this.vel.add(this.acc);
-  this.vel.limit(this.maxSpeed * 0.5);
+  this.vel.limit(this.maxSpeed*.3);
   this.loc.add(this.vel);
 }
 

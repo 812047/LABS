@@ -3,8 +3,8 @@ function Vehicle(loc, vel) {
   this.loc = new JSVector(loc.x, loc.y);
   this.vel = new JSVector(vel.x, vel.y);
   this.acc = new JSVector(0, 0);
-  this.desiredSep = 20;//  desired separation between vehicles
-  this.scl = 10;
+  this.desiredSep = 25;//  desired separation between vehicles
+  this.scl = 6;
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
   let blue = Math.floor(Math.random() * 256);
@@ -50,19 +50,28 @@ Vehicle.prototype.separate = function (v) {
   let sum = new JSVector(0, 0);
   for (let i = 0; i < v.length; i++) {
     let d = this.loc.distance(v[i].loc);
+    if(d < 1 && d > 0){
+      this.loc.x = Math.random()*canvas.width;
+      this.loc.y = Math.random()*canvas.height;
+    }
     if (d > 0 && d < this.desiredSep) {
       let diff = JSVector.subGetNew(this.loc, v[i].loc);
+
       diff.normalize();
-      sum.add(diff)
+      sum.add(diff);
       count++;
     }
 
   }
   if (count > 0) {
     sum.divide(count);
+    sum.multiply(this.maxSpeed);
+    let steer = JSVector.subGetNew(sum, this.vel);
+    steer.limit(this.maxForce);
+    return steer;
   }
+  return new JSVector(0, 0);
 
-  return sum;
 }
 
 Vehicle.prototype.align = function (v) {
@@ -84,9 +93,9 @@ Vehicle.prototype.align = function (v) {
     steer = JSVector.subGetNew(sum, this.vel)
     steer.limit(this.maxForce);
     return steer;
-  } else {
-    return new JSVector(0, 0);
   }
+  return new JSVector(0, 0);;
+
 }
 
 
@@ -116,16 +125,16 @@ Vehicle.prototype.seek = function (target) {
   // A vector pointing from the location to the target
   let desired = JSVector.subGetNew(target, this.loc);
   desired.normalize();
-  desired.multiply(this.maxSpeed*.3);
+  desired.multiply(this.maxSpeed);
   let steer = JSVector.subGetNew(desired, this.vel);
-  steer.limit(this.maxForce);
+   steer.limit(this.maxForce);
   return steer;
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
 
 Vehicle.prototype.update = function () {
   this.vel.add(this.acc);
-  this.vel.limit(this.maxSpeed*.3);
+  this.vel.limit(0.5);
   this.loc.add(this.vel);
 }
 
@@ -144,10 +153,12 @@ Vehicle.prototype.render = function () {
   ctx.beginPath();
   ctx.strokeStyle = this.clr;
   ctx.fillStyle = this.clr;
+  this.scl = 4;
   ctx.moveTo(0, -this.scl);
   ctx.lineTo(-this.scl, this.scl);
   ctx.lineTo(0, 0);
   ctx.lineTo(this.scl, this.scl);
+  //ctx.arc(0, 0, this.scl/2, Math.PI * 2, 0, false);
 
   ctx.closePath();
   ctx.stroke();

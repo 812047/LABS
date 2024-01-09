@@ -3,7 +3,7 @@ function Vehicle(loc, vel) {
   this.loc = new JSVector(loc.x, loc.y);
   this.vel = new JSVector(vel.x, vel.y);
   this.acc = new JSVector(0, 0);
-  this.desiredSep = 25;//  desired separation between vehicles
+  this.desiredSep = 25//  desired separation between vehicles
   this.scl = 6;
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -17,7 +17,7 @@ function Vehicle(loc, vel) {
 Vehicle.prototype.run = function (vehicles) {
   this.flock(vehicles);
   this.update();
-  this.checkEdges()
+  this.checkEdges();
   this.render();
 }
 
@@ -33,7 +33,7 @@ Vehicle.prototype.flock = function (vehicles) {
   let aliMult = document.getElementById("slider4").value;;  // Get slider VAlue%%%%%%%%%%%%%%%%%%
   let cohMult = document.getElementById("slider5").value;;    // Get slider VAlue%%%%%%%%%%%%%%%%%%
   //  calculate three forces
-  sep.multiply(sepMult*3);
+  sep.multiply(sepMult*2.4);
   ali.multiply(aliMult);
   coh.multiply(cohMult);
   //  add each of these to flockForce

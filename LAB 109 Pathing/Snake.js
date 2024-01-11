@@ -1,83 +1,116 @@
 function Snake(x, y) {
-    this.loc = new JSVector(x, y);
+    this.loc = new JSVector(x * 40 , y * 40 );
     this.vel = new JSVector(0, 0);
     this.acc = new JSVector(0, 0);
-    this.lineSegments = [];
-    this.numberOfSegments = 40;
-    this.lineSegmentsLength = 33;
-    for (let i = 1; i < this.numberOfSegments - 1; i++) {
-        this.lineSegments.push(new JSVector(0, 0));
-
-    }
+ 
 
 }
 
 
 Snake.prototype.run = function () {
+    this.render();
+    this.searchPath();
     this.update();
     this.checkEdges();
+   
 }
 
 Snake.prototype.update = function () {
-    this.acc = JSVector.subGetNew(planets.loc, this.loc);
-    this.acc.normalize();
-    this.acc.multiply(4);// this code really has never worked
-    this.vel = this.acc;
-
-    this.vel.add(this.acc);
-    this.vel.limit(5)
-    this.loc.add(this.vel);
-
-    this.updateSegments(0, this.loc);
-    for (let i = 0; i < this.lineSegments.length - 1; i++) {
-        this.updateSegments(i + 1, this.lineSegments[i]);
-
-    }
+    let ctx = context;
+    ctx.strokeStyle = this.c;
+    ctx.fillStyle = this.c;
+    ctx.beginPath();
+    ctx.rect(this.loc.x, this.loc.y, 40, 40);
+    ctx.stroke();
+    ctx.fill();
 }
 
 Snake.prototype.checkEdges = function () {
+
+
     if (this.loc.x > canvas.width) this.loc.x = 0;
     if (this.loc.x < 0) this.loc.x = canvas.width;
     if (this.loc.y > canvas.height) this.loc.y = 0;
     if (this.loc.y < 0) this.loc.y = canvas.height;
 }
 Snake.prototype.render = function (nextI, a) {
-    let ctx = context;
+   
 
 
-    ctx.save();
-    let red = 0 + (-nextI * 14);
-    let green = 50 + (nextI * 7);
-    let blue = 20 + (nextI * 3);
-    this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.4 + ')';
-    ctx.strokeStyle = this.c;
-    ctx.fillStyle = this.c;
 
-    ctx.translate(this.lineSegments[nextI].x, this.lineSegments[nextI].y);
-    ctx.rotate(a + Math.PI / 2);
-    ctx.beginPath();
+}
 
+Snake.prototype.searchPath = function () {
+    let dist = this.loc.distance(planets.loc);
+    let newWDist = 12000;
+    let newEDist = 12000;
+    let newNDist = 12000;
+    let newSDist = 12000;
+    let simW = new JSVector(-40, 0);
+    let simE = new JSVector(40, 0);
+    let simN = new JSVector(0, -40);
+    let simS = new JSVector(0, 40);
+    let simLoc = new JSVector(0, 0);
+    let finalMove = 0;
 
-    ctx.lineTo(0, 0);
-    ctx.lineWidth = this.lineSegmentsLength - nextI + 1
-    ctx.lineCap = "round";
+        if (this.loc.x - 40 > 0) {//
 
-    ctx.stroke();
-    ctx.fill();
-    ctx.closePath();
+            simLoc.add(simW);
+            newWDist = simLoc.distance(planets.loc);
+            simLoc.sub(simW);
+            if(newWDist != 12000){
+            finalMove = "W";
+            }
+        }
+        if (this.loc.x + 40 < 2000) {//
 
-    ctx.restore();
+            simLoc.add(simE);
+            newEDist = simLoc.distance(planets.loc);
+            simLoc.sub(simE);
+            if((newEDist < newWDist || newWDist === 12000)){
+                finalMove = "E";
+            }
+        }
+        if (this.loc.y - 40 > 0) {//
+            simLoc.add(simN);
+            newNDist = simLoc.distance(planets.loc);
+            simLoc.sub(simN);
+            if((newNDist < newWDist || newWDist === 12000) && (newNDist < newEDist || newEDist === 12000)){
+                finalMove = "N";
+            }
+        }
+        if (this.loc.y - 40 < 1500) {//
+            simLoc.add(simS);
+            newSDist = simLoc.distance(planets.loc);
+            simLoc.sub(simS);
+      
+            console.log(newSDist < newEDist);
+            console.log(newSDist);
+            if((newSDist < newNDist || newNDist == 12000) && (newSDist < newWDist || newWDist == 12000)
+            && (newSDist < newEDist || newEDist == 12000) ){
+                finalMove = "S";
+            }
+        
+    
+    if(finalMove === "W"){
+        this.loc.add(simW);
+    }
+    if(finalMove === "E"){
+        this.loc.add(simE);
+    }
+    if(finalMove === "N"){
+        this.loc.add(simN);
+    }
+    if(finalMove === "S"){
+        this.loc.add(simS);
+    }
+  
+}
 
 
 
 }
 
 
-Snake.prototype.updateSegments = function (nextI, lineSegments) {
-    let dx = lineSegments.x - this.lineSegments[nextI].x;
-    let dy = lineSegments.y - this.lineSegments[nextI].y;
-    let angle = Math.atan2(dy, dx);
-    this.lineSegments[nextI].x = lineSegments.x - Math.cos(angle) * (this.lineSegmentsLength - nextI + 1);
-    this.lineSegments[nextI].y = lineSegments.y - Math.sin(angle) * (this.lineSegmentsLength - nextI + 1);
-    this.render(nextI, angle);
-}
+
+

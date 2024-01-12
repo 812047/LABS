@@ -3,12 +3,12 @@ function Planet(x, y, diam) {
     this.acc = new JSVector(0, 0);
     this.vel = new JSVector(0, 0);
     this.diam = diam;
+   
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
     this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
-}   
-
+}
 
 
 Planet.prototype.run = function () {

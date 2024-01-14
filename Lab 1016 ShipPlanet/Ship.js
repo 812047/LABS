@@ -1,6 +1,6 @@
 function Ship(x, y) {
     this.loc = new JSVector(x, y);
-    this.vel = new JSVector(0,0);
+    this.vel = new JSVector(0, 0);
     this.acc = new JSVector(0, 0);
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
@@ -17,19 +17,17 @@ Ship.prototype.run = function () {
 }
 
 Ship.prototype.update = function () {
- 
-   
-    let d = Math.sqrt((this.loc.x - planets[0].loc.x) * (this.loc.x - planets[0].loc.x) + (this.loc.y - planets[0].loc.y) * (this.loc.y - planets[0].loc.y));
-    console.log(d);
-this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
+    this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
+    this.acc.normalize();
+    console.log(this.acc);
+    this.acc.multiply(0.0048);//yeah this is important to be very small 
+    console.log(this.acc);
+    this.vel.limit(2);
+    this.vel.add(this.acc);
+    this.vel.limit(2);
+    this.loc.add(this.vel);
 
-this.acc.normalize;
-this.acc.multiply(0.0008);//yeah this is important to be very small 
-this.vel.add(this.acc);
 
-this.loc.add(this.vel);
-
-    this.vel.limit(1.4);
 }
 
 Ship.prototype.checkEdges = function () {
@@ -43,10 +41,10 @@ Ship.prototype.render = function () {
     ctx.save();
     ctx.strokeStyle = this.c;
     ctx.fillStyle = this.c;
-    
+
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.vel.getDirection() + Math.PI/2)
- //   console.log(this.vel.getDirection() + Math.PI/4)
+    //   console.log(this.vel.getDirection() + Math.PI/4)
     ctx.beginPath();
     ctx.moveTo(0, -15)
     ctx.lineTo(-10, 10);
@@ -60,10 +58,10 @@ Ship.prototype.render = function () {
     ctx.fillStyle = c;
     ctx.moveTo(0, 15);
     ctx.lineTo(-4, 20);
-    this.p += Math.random()*3-1.5;
-    if(this.p > 80 || this.p < 20) this.p = 50;
+    this.p += Math.random() * 3 - 1.5;
+    if (this.p > 80 || this.p < 20) this.p = 50;
     ctx.lineTo(0, this.p);
-    ctx.lineTo(4,20);
+    ctx.lineTo(4, 20);
     ctx.closePath();
     ctx.stroke();
     ctx.fill()

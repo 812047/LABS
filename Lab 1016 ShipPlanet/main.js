@@ -8,7 +8,8 @@ function init() {
     context = canvas.getContext("2d");
 
     ships.push(new Ship(Math.random()*canvas.width/2 + canvas.width/4, Math.random()*canvas.height/2 + canvas.height/4));
-   planets.push(new Planet(Math.random()*canvas.width/2 + canvas.width/4, Math.random()*canvas.height/2 + canvas.height/4, 30));
+ //  planets.push(new Planet(Math.random()*canvas.width/2 + canvas.width/4, Math.random()*canvas.height/2 + canvas.height/4, 30));
+ planets.push(new Planet(400,400, 20))
     animate();
 
 }

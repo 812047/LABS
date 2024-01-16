@@ -1,11 +1,19 @@
 function Food(parent, r, d){
     this.plant = parent; 
     this.r = r;
+<<<<<<< Updated upstream
     this.loc = new JSVector(parent.loc.x, parent.loc.y);
     this.vel = new JSVector(Math.random()*2 - 1, Math.random()*2 - 1);
     this.acc = new JSVector()
     this.lifespan = 600;
     this.c = d;
+=======
+    this.loc = new JSVector(parent.x, parent.y);
+    this.vel = new JSVector(Math.random()*4 - 2, Math.random()*4 - 2);
+    this.acc 
+    this.lifespan = 300;
+
+>>>>>>> Stashed changes
     this.isDead = false;
   
 }

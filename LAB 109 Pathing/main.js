@@ -7,9 +7,9 @@ function init() {
   //its a 50 x 40 block system (put that in the locs)
   canvas = document.getElementById("cnv");
   context = canvas.getContext("2d");
-snakes = new Snake(20,2);//the third value is i-1 # of lineSegments
-planets = new Planet(10,5,40)
- for(let i = 0; i < 0; i ++) {
+snakes = new Snake(2,2);//the third value is i-1 # of lineSegments
+planets = new Planet(30, 30 ,40)
+ for(let i = 0; i < 100; i ++) {
   let x = Math.floor(Math.random() * 50); 
   let y =  Math.floor(Math.random() * 40);
   obstacles.push(new Obstacle(x, y));
@@ -28,7 +28,10 @@ function animate() {
   requestAnimationFrame(animate); // next cycle
 
   planets.run();
+  let j = Math.random;
+
   snakes.run();
+
   for( let i = 0; i < obstacles.length; i ++){
     obstacles[i].run();
  

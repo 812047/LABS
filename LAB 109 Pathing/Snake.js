@@ -1,9 +1,11 @@
 function Snake(x, y) {
-    this.loc = new JSVector(x * 40 , y * 40 );
+    this.loc = new JSVector(x * 40, y * 40);
     this.vel = new JSVector(0, 0);
     this.acc = new JSVector(0, 0);
- 
 
+    this.count = 0;
+
+    this.c = 'rgba(' + 1 + ',' + 1 + ',' + 1 + ',' + 1 + ')';
 }
 
 
@@ -12,17 +14,11 @@ Snake.prototype.run = function () {
     this.searchPath();
     this.update();
     this.checkEdges();
-   
+
 }
 
 Snake.prototype.update = function () {
-    let ctx = context;
-    ctx.strokeStyle = this.c;
-    ctx.fillStyle = this.c;
-    ctx.beginPath();
-    ctx.rect(this.loc.x, this.loc.y, 40, 40);
-    ctx.stroke();
-    ctx.fill();
+
 }
 
 Snake.prototype.checkEdges = function () {
@@ -34,14 +30,20 @@ Snake.prototype.checkEdges = function () {
     if (this.loc.y < 0) this.loc.y = canvas.height;
 }
 Snake.prototype.render = function (nextI, a) {
-   
 
+    let ctx = context;
+    ctx.strokeStyle = this.c;
+    ctx.fillStyle = this.c;
+    ctx.beginPath();
+    ctx.rect(this.loc.x, this.loc.y, 40, 40);
+    ctx.stroke();
+    ctx.fill();
 
 
 }
 
 Snake.prototype.searchPath = function () {
-    let dist = this.loc.distance(planets.loc);
+    let dist = this.loc.distance(planets.loc)
     let newWDist = 12000;
     let newEDist = 12000;
     let newNDist = 12000;
@@ -50,66 +52,112 @@ Snake.prototype.searchPath = function () {
     let simE = new JSVector(40, 0);
     let simN = new JSVector(0, -40);
     let simS = new JSVector(0, 40);
-    let simLoc = new JSVector(0, 0);
-    let finalMove = 0;
+    let allowWMove = true;
+    let allowEMove = true;
+    let allowNMove = true;
+    let allowSMove = true;
+    let simLoc = this.loc;
+    let finalMove = "NaN";
 
-        if (this.loc.x - 40 > 0) {//
+    for (let i = 0; i < obstacles.length; i++) {
+        let kW = simW.add(this.loc);
+        let kE = simE.add(this.loc);
+        let kN = simN.add(this.loc);
+        let kS = simS.add(this.loc);
+        if (kW === obstacles[i].loc) {
+            allowWMove = false;
+        }
+        if (kE === obstacles[i].loc) {
+            allowEMove = false;
+        }
+        if (kN === obstacles[i].loc) {
+            allowNMove = false;
+
+        }
+        if (kS === obstacles[i].loc) {
+            allowSMove = false;
+        }
+        kW = simW.sub(this.loc);
+        kE = simE.sub(this.loc);
+        kN = simN.sub(this.loc);
+        kS = simS.sub(this.loc);
+    }
+        if (this.loc.x - 40 > 0 && allowWMove) {//
 
             simLoc.add(simW);
             newWDist = simLoc.distance(planets.loc);
             simLoc.sub(simW);
-            if(newWDist != 12000){
-            finalMove = "W";
+            if (newWDist != 12000) {
+                finalMove = "W";
             }
+
         }
-        if (this.loc.x + 40 < 2000) {//
+        if (this.loc.x + 40 < 2000 && allowEMove) {//
 
             simLoc.add(simE);
             newEDist = simLoc.distance(planets.loc);
             simLoc.sub(simE);
-            if((newEDist < newWDist || newWDist === 12000)){
+            if ((newEDist < newWDist || newWDist === 12000)) {
                 finalMove = "E";
             }
+
         }
-        if (this.loc.y - 40 > 0) {//
+        if (this.loc.y - 40 > 0 && allowNMove) {//
             simLoc.add(simN);
             newNDist = simLoc.distance(planets.loc);
             simLoc.sub(simN);
-            if((newNDist < newWDist || newWDist === 12000) && (newNDist < newEDist || newEDist === 12000)){
+            if ((newNDist < newWDist || newWDist === 12000) && (newNDist < newEDist || newEDist === 12000)) {
                 finalMove = "N";
             }
+
         }
-        if (this.loc.y - 40 < 1500) {//
+        if (this.loc.y - 40 < 1500 && allowSMove) {//
             simLoc.add(simS);
             newSDist = simLoc.distance(planets.loc);
             simLoc.sub(simS);
-      
-            console.log(newSDist < newEDist);
-            console.log(newSDist);
-            if((newSDist < newNDist || newNDist == 12000) && (newSDist < newWDist || newWDist == 12000)
-            && (newSDist < newEDist || newEDist == 12000) ){
+
+
+            if ((newSDist < newNDist || newNDist == 12000) && (newSDist < newWDist || newWDist == 12000)
+                && (newSDist < newEDist || newEDist == 12000)) {
                 finalMove = "S";
+
             }
-        
+
+        }
+
+       
     
-    if(finalMove === "W"){
-        this.loc.add(simW);
+
+    if (dist > 60) {
+      
+        if (finalMove === "W") {
+           
+            this.loc.add(simW);
+        }
+        if (finalMove === "E") {
+            this.loc.add(simE);
+        }
+        if (finalMove === "N") {
+            this.loc.add(simN);
+        }
+        if (finalMove === "S") {
+            this.loc.add(simS);
+        }
+    
     }
-    if(finalMove === "E"){
-        this.loc.add(simE);
-    }
-    if(finalMove === "N"){
-        this.loc.add(simN);
-    }
-    if(finalMove === "S"){
-        this.loc.add(simS);
-    }
-  
+    newWDist = 12000;
+    newEDist = 12000;
+    newNDist = 12000;
+    newSDist = 12000;
+     allowWMove = true;
+     allowEMove = true;
+     allowNMove = true;
+     allowSMove = true;
 }
 
 
 
-}
+
 
 
 

@@ -34,7 +34,10 @@ function animate() {
   requestAnimationFrame(animate); // next cycle
 
   planets.run();
-  snakes.run();
+
+    snakes.run();
+
+
 
   for (let i = 0; i < obstacles.length; i++) {
     obstacles[i].run();

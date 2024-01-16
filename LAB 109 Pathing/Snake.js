@@ -11,7 +11,10 @@ function Snake(x, y) {
 
 Snake.prototype.run = function () {
     this.render();
+    setTimeout(() => {
     this.searchPath();
+
+}, "2000");
     this.update();
     this.checkEdges();
 
@@ -44,7 +47,7 @@ Snake.prototype.render = function (nextI, a) {
 
 Snake.prototype.searchPath = function () {
     
-    let dist = this.loc.distance(planets.loc)
+    let dist = this.loc.distance(planets.loc);
 
     let newWDist = 12000;
     let newEDist = 12000;
@@ -68,9 +71,9 @@ Snake.prototype.searchPath = function () {
         let kE = JSVector.addGetNew(simE, this.loc);
         let kN = JSVector.addGetNew(simN, this.loc);
         let kS = JSVector.addGetNew(simS, this.loc);
-
-       
+     
         if (kW == obstacles[i].loc) {
+         
             allowWMove = false;
 
         }
@@ -86,6 +89,7 @@ Snake.prototype.searchPath = function () {
             allowSMove = false;
 
         }
+
         kW = JSVector.subGetNew(simW, this.loc);
         kE = JSVector.subGetNew(simE, this.loc);
         kN = JSVector.subGetNew(simN, this.loc);

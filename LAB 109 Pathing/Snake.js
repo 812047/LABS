@@ -56,7 +56,7 @@ Snake.prototype.searchPath = function () {
     let allowSMove = true;
     let simLoc = this.loc;
     let finalMove = "NaN";
-   
+    let lastFinalMove = "NaN";
     let kW = JSVector.addGetNew(simW, this.loc);
     let kE = JSVector.addGetNew(simE, this.loc);
     let kN = JSVector.addGetNew(simN, this.loc);
@@ -79,7 +79,7 @@ Snake.prototype.searchPath = function () {
 
         }
     }
-    if (this.loc.x - 40 > 0 && allowWMove == true) {//
+    if (this.loc.x - 40 > 0 && allowWMove == true && lastFinalMove != "E") {//
 
         simLoc.add(simW);
         newWDist = simLoc.distance(planets.loc);
@@ -89,7 +89,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.x + 40 < 2000 && allowEMove == true) {//
+    if (this.loc.x + 40 < 2000 && allowEMove == true  && lastFinalMove != "W") {//
 
         simLoc.add(simE);
         newEDist = simLoc.distance(planets.loc);
@@ -99,7 +99,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 > 0 && allowNMove == true) {//
+    if (this.loc.y - 40 > 0 && allowNMove == true  && lastFinalMove != "S") {//
         simLoc.add(simN);
         newNDist = simLoc.distance(planets.loc);
         simLoc.sub(simN);
@@ -108,7 +108,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 < 1500 && allowSMove == true) {//
+    if (this.loc.y - 40 < 1500 && allowSMove == true  && lastFinalMove != "N") {//
         simLoc.add(simS);
         newSDist = simLoc.distance(planets.loc);
         simLoc.sub(simS);
@@ -149,7 +149,7 @@ Snake.prototype.searchPath = function () {
     allowEMove = true;
     allowNMove = true;
     allowSMove = true;
-    let lastFinalMove = finalMove;
+    lastFinalMove = finalMove;
     finalMove = "NaN";
 }
 

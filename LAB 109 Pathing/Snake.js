@@ -55,8 +55,9 @@ Snake.prototype.searchPath = function () {
     let allowNMove = true;
     let allowSMove = true;
     let simLoc = this.loc;
-    let lastFinalMove = finalMove;
+    
     let finalMove = "NaN";
+    let lastFinalMove = finalMove;
     let kW = JSVector.addGetNew(simW, this.loc);
     let kE = JSVector.addGetNew(simE, this.loc);
     let kN = JSVector.addGetNew(simN, this.loc);

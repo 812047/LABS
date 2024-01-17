@@ -71,7 +71,8 @@ Snake.prototype.searchPath = function () {
         let kE = JSVector.addGetNew(simE, this.loc);
         let kN = JSVector.addGetNew(simN, this.loc);
         let kS = JSVector.addGetNew(simS, this.loc);
-     
+     console.log(kW)
+     console.log(obstacles[i])
         if (kW == obstacles[i].loc) {
          
             allowWMove = false;

@@ -78,6 +78,7 @@ Snake.prototype.searchPath = function () {
             allowSMove = false;
 
         }
+       
     }
     if (this.loc.x - 40 > 0 && allowWMove == true && lastFinalMove != "E") {//
 
@@ -89,7 +90,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.x + 40 < 2000 && allowEMove == true  && lastFinalMove != "W") {//
+    if (this.loc.x + 40 < 2000 && allowEMove == true && lastFinalMove != "W") {//
 
         simLoc.add(simE);
         newEDist = simLoc.distance(planets.loc);
@@ -99,7 +100,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 > 0 && allowNMove == true  && lastFinalMove != "S") {//
+    if (this.loc.y - 40 > 0 && allowNMove == true && lastFinalMove != "S") {//
         simLoc.add(simN);
         newNDist = simLoc.distance(planets.loc);
         simLoc.sub(simN);
@@ -108,7 +109,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 < 1500 && allowSMove == true  && lastFinalMove != "N") {//
+    if (this.loc.y - 40 < 1500 && allowSMove == true && lastFinalMove != "N") {//
         simLoc.add(simS);
         newSDist = simLoc.distance(planets.loc);
         simLoc.sub(simS);

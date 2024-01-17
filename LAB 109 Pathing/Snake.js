@@ -11,27 +11,11 @@ function Snake(x, y) {
 
 Snake.prototype.run = function () {
     this.render();
-    setTimeout(() => {
     this.searchPath();
-
-}, "2000");
-    this.update();
-    this.checkEdges();
-
 }
 
-Snake.prototype.update = function () {
-
-}
-
-Snake.prototype.checkEdges = function () {
 
 
-    if (this.loc.x > canvas.width) this.loc.x = 0;
-    if (this.loc.x < 0) this.loc.x = canvas.width;
-    if (this.loc.y > canvas.height) this.loc.y = 0;
-    if (this.loc.y < 0) this.loc.y = canvas.height;
-}
 Snake.prototype.render = function (nextI, a) {
 
     let ctx = context;
@@ -44,7 +28,16 @@ Snake.prototype.render = function (nextI, a) {
 
 
 }
+Snake.prototype.checkOverlap = function(n){
+    for(let i = 0 ; i < obstacles.length; i ++){
+ let dist = n.distance(obstacles[i].loc)
+ if(dist === 0){
+return true;
+ }
+    }
+    return false;
 
+}
 Snake.prototype.searchPath = function () {
     
     let dist = this.loc.distance(planets.loc);
@@ -63,38 +56,28 @@ Snake.prototype.searchPath = function () {
     let allowSMove = true;
     let simLoc = this.loc;
     let finalMove = "NaN";
-
+   
+    let kW = JSVector.addGetNew(simW, this.loc);
+    let kE = JSVector.addGetNew(simE, this.loc);
+    let kN = JSVector.addGetNew(simN, this.loc);
+    let kS = JSVector.addGetNew(simS, this.loc);
     for (let i = 0; i < obstacles.length; i++) {
-
-
-        let kW = JSVector.addGetNew(simW, this.loc);
-        let kE = JSVector.addGetNew(simE, this.loc);
-        let kN = JSVector.addGetNew(simN, this.loc);
-        let kS = JSVector.addGetNew(simS, this.loc);
-     console.log(kW)
-     console.log(obstacles[i])
-        if (kW == obstacles[i].loc) {
-         
+        if (this.checkOverlap(kW)) {
             allowWMove = false;
 
         }
-        if (kE == obstacles[i].loc) {
+        if (this.checkOverlap(kE)) {
             allowEMove = false;
 
         }
-        if (kN == obstacles[i].loc) {
+        if (this.checkOverlap(kN)) {
             allowNMove = false;
 
         }
-        if (kS == obstacles[i].loc) {
+        if (this.checkOverlap(kS)) {
             allowSMove = false;
 
         }
-
-        kW = JSVector.subGetNew(simW, this.loc);
-        kE = JSVector.subGetNew(simE, this.loc);
-        kN = JSVector.subGetNew(simN, this.loc);
-        kS = JSVector.subGetNew(simS, this.loc);
     }
     if (this.loc.x - 40 > 0 && allowWMove == true) {//
 
@@ -138,8 +121,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-
-
+    
 
 
     if (dist > 60) {
@@ -167,6 +149,7 @@ Snake.prototype.searchPath = function () {
     allowEMove = true;
     allowNMove = true;
     allowSMove = true;
+    let lastFinalMove = finalMove;
     finalMove = "NaN";
 }
 

@@ -13,12 +13,12 @@ function init() {
   snakes = new Snake(x, y);//the third value is i-1 # of lineSegments
   x = Math.floor(Math.random() * 50);
   y = Math.floor(Math.random()* 40);
-  Math.floor(Math.random() * 40);
-  planets = new Planet(x, y, 40)
-  for (let i = 0; i < 100; i++) {
-    let x = Math.floor(Math.random() * 50);
-    let y = Math.floor(Math.random() * 40);
-    obstacles.push(new Obstacle(x, y));
+
+  planets = new Planet(x, y, 40);
+  for (let i = 0; i < 500; i++) {
+    let p = Math.floor(Math.random() * 50);
+    let g = Math.floor(Math.random() * 40);
+    obstacles.push(new Obstacle(p, g));
 
   }
   animate();

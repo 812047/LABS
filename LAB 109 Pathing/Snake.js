@@ -12,7 +12,9 @@ function Snake(x, y) {
 Snake.prototype.run = function () {
     this.render();
     this.searchPath();
+
 }
+
 
 
 
@@ -28,20 +30,18 @@ Snake.prototype.render = function (nextI, a) {
 
 
 }
-Snake.prototype.checkOverlap = function(n){
-    for(let i = 0 ; i < obstacles.length; i ++){
- let dist = n.distance(obstacles[i].loc)
- if(dist === 0){
-return true;
- }
+Snake.prototype.checkOverlap = function (n) {
+    for (let i = 0; i < obstacles.length; i++) {
+        let dist = n.distance(obstacles[i].loc)
+        if (dist === 0) {
+            return true;
+        }
     }
     return false;
 
 }
 Snake.prototype.searchPath = function () {
-    
     let dist = this.loc.distance(planets.loc);
-
     let newWDist = 12000;
     let newEDist = 12000;
     let newNDist = 12000;
@@ -55,33 +55,39 @@ Snake.prototype.searchPath = function () {
     let allowNMove = true;
     let allowSMove = true;
     let simLoc = this.loc;
-    
     let finalMove = "NaN";
-    let lastFinalMove = finalMove;
+
     let kW = JSVector.addGetNew(simW, this.loc);
     let kE = JSVector.addGetNew(simE, this.loc);
     let kN = JSVector.addGetNew(simN, this.loc);
     let kS = JSVector.addGetNew(simS, this.loc);
+
     for (let i = 0; i < obstacles.length; i++) {
-        if (this.checkOverlap(kW)) {
+        if (this.checkOverlap(kW)
+        || (this.checkOverlap(JSVector.addGetNew(simW, kW)) && this.checkOverlap(JSVector.addGetNew(simS, kW)))
+         || (this.checkOverlap(JSVector.addGetNew(simW, kW))//AOPJEWO:JEJOAIEUHPW
+         && this.checkOverlap(JSVector.addGetNew(simN, kW)) && this.checkOverlap(JSVector.addGetNew(simS, kW)))) {
             allowWMove = false;
 
         }
-        if (this.checkOverlap(kE)) {
+        if (this.checkOverlap(kE) ||
+         (this.checkOverlap(JSVector.addGetNew(simE, kE)) && this.checkOverlap(JSVector.addGetNew(simN, kE)) && this.checkOverlap(JSVector.addGetNew(simS, kE)))) {
             allowEMove = false;
 
         }
-        if (this.checkOverlap(kN)) {
+        if (this.checkOverlap(kN) ||
+        (this.checkOverlap(JSVector.addGetNew(simN, kN)) && this.checkOverlap(JSVector.addGetNew(simE, kN)) && this.checkOverlap(JSVector.addGetNew(simW, kN)))) {
             allowNMove = false;
 
         }
-        if (this.checkOverlap(kS)) {
+        if (this.checkOverlap(kS) ||
+        (this.checkOverlap(JSVector.addGetNew(simS, kS)) && this.checkOverlap(JSVector.addGetNew(simW, kS)) && this.checkOverlap(JSVector.addGetNew(simE, kS)))) {
             allowSMove = false;
 
         }
-       
+
     }
-    if (this.loc.x - 40 > 0 && allowWMove == true && lastFinalMove != "E") {//
+    if (this.loc.x - 40 > 0 && allowWMove == true) {//
 
         simLoc.add(simW);
         newWDist = simLoc.distance(planets.loc);
@@ -91,7 +97,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.x + 40 < 2000 && allowEMove == true && lastFinalMove != "W") {//
+    if (this.loc.x + 40 < 2000 && allowEMove == true) {//
 
         simLoc.add(simE);
         newEDist = simLoc.distance(planets.loc);
@@ -101,7 +107,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 > 0 && allowNMove == true && lastFinalMove != "S") {//
+    if (this.loc.y - 40 > 0 && allowNMove == true) {//
         simLoc.add(simN);
         newNDist = simLoc.distance(planets.loc);
         simLoc.sub(simN);
@@ -110,7 +116,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    if (this.loc.y - 40 < 1500 && allowSMove == true && lastFinalMove != "N") {//
+    if (this.loc.y - 40 < 1500 && allowSMove == true) {//
         simLoc.add(simS);
         newSDist = simLoc.distance(planets.loc);
         simLoc.sub(simS);
@@ -123,7 +129,7 @@ Snake.prototype.searchPath = function () {
         }
 
     }
-    
+
 
 
     if (dist > 60) {
@@ -131,6 +137,7 @@ Snake.prototype.searchPath = function () {
         if (finalMove === "W") {
 
             this.loc.add(simW);
+
         }
         if (finalMove === "E") {
             this.loc.add(simE);
@@ -151,7 +158,7 @@ Snake.prototype.searchPath = function () {
     allowEMove = true;
     allowNMove = true;
     allowSMove = true;
-    lastFinalMove = finalMove;
+    return finalMove;
 
 }
 

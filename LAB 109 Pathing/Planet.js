@@ -3,10 +3,7 @@ function Planet(x, y, diam) {
     this.acc = new JSVector(0, 0);
     this.vel = new JSVector(0, 0);
     this.diam = diam;
-    let red = Math.floor(Math.random() * 100);
-    let green = Math.floor(Math.random() * 100);
-    let blue = Math.floor(Math.random() * 100);
-    this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 1 + ')';
+    this.c = 'rgba(' + 1 + ',' + 1 + ',' + 1 + ',' + 1 + ')';
 }   
 
 

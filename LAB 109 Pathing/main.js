@@ -15,7 +15,7 @@ function init() {
   y = Math.floor(Math.random()* 40);
 
   planets = new Planet(x, y, 40);
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 500; i++) {
     let p = Math.floor(Math.random() * 50);
     let g = Math.floor(Math.random() * 40);
     obstacles.push(new Obstacle(p, g));

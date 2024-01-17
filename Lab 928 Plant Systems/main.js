@@ -9,6 +9,7 @@ function init() {
   
 
     loadPlants(3);
+    console.log(plants)
     loadCreatures(4);
     animate();
 
@@ -19,8 +20,9 @@ function init() {
 function animate() {
     // erase the HTMLCanvasElement
     context.clearRect(0, 0, canvas.width, canvas.height);
-    runPlants();   
     runCreatures();
+    runPlants();   
+
     requestAnimationFrame(animate); // next cycle
    
 

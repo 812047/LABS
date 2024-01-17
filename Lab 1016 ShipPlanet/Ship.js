@@ -1,6 +1,6 @@
 function Ship(x, y) {
     this.loc = new JSVector(x, y);
-    this.vel = new JSVector(0, 0);
+    this.vel = new JSVector(Math.random()*6-3, Math.random()*6-3);
     this.acc = new JSVector(0, 0);
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
@@ -13,20 +13,28 @@ function Ship(x, y) {
 Ship.prototype.run = function () {
     this.update();
     this.render();
+
     this.checkEdges();
 }
 
 Ship.prototype.update = function () {
-    this.acc = JSVector.subGetNew(planets[0].loc, this.loc);
+    let d = this.loc.distance(planets.loc);
+    console.log(d)
+    if( d < 8000 ){
+    this.acc = JSVector.subGetNew(planets.loc, this.loc);
     this.acc.normalize();
-    console.log(this.acc);
-    this.acc.multiply(0.0048);//yeah this is important to be very small 
-    console.log(this.acc);
-    this.vel.limit(2);
+    this.acc.multiply(.05);
+    }
+    if( d < 900){
+        this.acc = JSVector.subGetNew(planets.loc, this.loc);
+        this.acc.normalize();
+        this.acc.multiply(0.08);
+    }
     this.vel.add(this.acc);
-    this.vel.limit(2);
+    this.vel.limit(5);
     this.loc.add(this.vel);
 
+    
 
 }
 
@@ -39,20 +47,23 @@ Ship.prototype.checkEdges = function () {
 Ship.prototype.render = function () {
     let ctx = context;
     ctx.save();
-    ctx.strokeStyle = this.c;
-    ctx.fillStyle = this.c;
-
     ctx.translate(this.loc.x, this.loc.y);
     ctx.rotate(this.vel.getDirection() + Math.PI/2)
-    //   console.log(this.vel.getDirection() + Math.PI/4)
+    console.log(this)
+
+    ctx.strokeStyle = this.c;
+    ctx.fillStyle = this.c;
+    //body
     ctx.beginPath();
-    ctx.moveTo(0, -15)
+    ctx.moveTo(0, -15);
     ctx.lineTo(-10, 10);
     ctx.lineTo(0, 0);
     ctx.lineTo(10, 10);
     ctx.closePath();
     ctx.stroke();
     ctx.fill();
+
+    //flame
     let c = "rgb(240,80,0)";
     ctx.strokeStyle = c;
     ctx.fillStyle = c;
@@ -66,7 +77,6 @@ Ship.prototype.render = function () {
     ctx.stroke();
     ctx.fill()
     ctx.restore();
+    }
 
 
-
-}

@@ -32,7 +32,6 @@ function JSVector(x = 0, y = 0) {
   JSVector.prototype.getDirection = function () {
     let theta = 0;
     theta = Math.atan2(this.y, this.x);
-    console.log(theta)
     return theta;
   }
   
@@ -76,6 +75,7 @@ function JSVector(x = 0, y = 0) {
   // Normalize this vector so that it has a magnitude of 1
   JSVector.prototype.normalize = function () {
     let mag = Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
+
     this.x /= mag;
     this.y /= mag;
   }
@@ -83,7 +83,7 @@ function JSVector(x = 0, y = 0) {
   // Limit the magnitude of this vector
   JSVector.prototype.limit = function (lim) {
     if (Math.abs(this.x) > lim) {
-      if (this.x > 0) {
+      if (this.x >= 0) {
         this.x = lim;
       } else {
         this.x = -lim;

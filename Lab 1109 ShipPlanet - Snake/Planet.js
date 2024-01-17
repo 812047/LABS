@@ -3,13 +3,12 @@ function Planet(x, y, diam) {
     this.acc = new JSVector(0, 0);
     this.vel = new JSVector(0, 0);
     this.diam = diam;
+   
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
-    this.count = 0;
     this.c = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
-}   
-
+}
 
 
 Planet.prototype.run = function () {
@@ -19,23 +18,21 @@ Planet.prototype.run = function () {
 }
 
 Planet.prototype.update = function () {
-    let d = this.loc.distance(ships.loc)
+     let d = this.loc.distance(snakes.loc)
 
-    if (d < 400) {
-        this.acc = JSVector.subGetNew(this.loc, ships.loc);
-
-        this.acc.multiply(0.00006);
+    if (d < 200) {
+        this.acc = JSVector.subGetNew(this.loc, snakes.loc);
+        this.acc.normalize();
+        this.acc.multiply(0.00026);
         this.vel.add(this.acc);
-        this.vel.limit(1.8)
+        this.vel.limit(.2)
         this.loc.add(this.vel);
        
     }
-    if (d < 50) {
-        this.loc.x = Math.random() * canvas.width;
-        this.loc.y = Math.random() * canvas.height;
-        this.count++;
-        console.log(this.count)
-    }
+     if (d < 50) {
+         this.loc.x = Math.random() * canvas.width;
+         this.loc.y = Math.random() * canvas.height;
+     }
 
 }
 

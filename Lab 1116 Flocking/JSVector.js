@@ -40,13 +40,14 @@ JSVector.prototype.getDirection = function () {
 JSVector.prototype.add = function (v2) {
   this.x += v2.x;
   this.y += v2.y;
-  // return this;
+  return this;
 }
 
 // Subtract another vector from this vector
 JSVector.prototype.sub = function (v2) {
   this.x -= v2.x;
   this.y -= v2.y;
+  return this;
 }
 
 // Class method to return a new vector that is the sum of two vectors
@@ -64,24 +65,29 @@ JSVector.prototype.multiply = function (scalar) {
   this.x *= scalar;
   this.y *= scalar;
 }
-
-// Divide this vector by a scalar
 JSVector.prototype.divide = function (scalar) {
   this.x /= scalar;
   this.y /= scalar;
+}
+// Divide this vector by a scalar
+JSVector.prototype.equals = function (v2) {
+  this.x = v2.x;
+  this.y = v2.y;
 
 }
 
 // Normalize this vector so that it has a magnitude of 1
 JSVector.prototype.normalize = function () {
-  this.x /= this.x;
-  this.y /= this.y;
+  let mag = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+
+  this.x /= mag;
+  this.y /= mag;
 }
 
 // Limit the magnitude of this vector
 JSVector.prototype.limit = function (lim) {
   if (Math.abs(this.x) > lim) {
-    if (this.x > 0) {
+    if (this.x >= 0) {
       this.x = lim;
     } else {
       this.x = -lim;
@@ -120,9 +126,9 @@ JSVector.prototype.rotate = function (angle) {
   let y = this.y;
   let sin = Math.sin(angle);
   let cos = Math.cos(angle);
-  this.x = x*cos - y*sin;
-  this.y = x*sin + y*cos;
-  
+  this.x = x * cos - y * sin;
+  this.y = x * sin + y * cos;
+
 }
 
 // Get the angle between this vector and another one

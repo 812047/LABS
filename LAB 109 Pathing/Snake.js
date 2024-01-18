@@ -56,7 +56,11 @@ Snake.prototype.searchPath = function () {
     let allowSMove = true;
     let simLoc = this.loc;
     let finalMove = "NaN";
-
+    // (this.checkOverlap(JSVector.addGetNew(simW, kW)) &&
+    // ((this.checkOverlap(JSVector.addGetNew(simN, kW)) || (this.checkOverlap(JSVector.addGetNew(simS, kW))))))
+    //     ||
+    //     (this.checkOverlap(JSVector.addGetNew(simW, kW)) &&
+    // ((this.checkOverlap(JSVector.addGetNew(simN, kW)) || (this.checkOverlap(JSVector.addGetNew(simS, kW))))))
     let kW = JSVector.addGetNew(simW, this.loc);
     let kE = JSVector.addGetNew(simE, this.loc);
     let kN = JSVector.addGetNew(simN, this.loc);
@@ -64,24 +68,24 @@ Snake.prototype.searchPath = function () {
 
     for (let i = 0; i < obstacles.length; i++) {
         if (this.checkOverlap(kW)
-        || (this.checkOverlap(JSVector.addGetNew(simW, kW)) && this.checkOverlap(JSVector.addGetNew(simS, kW)))
-         || (this.checkOverlap(JSVector.addGetNew(simW, kW))//AOPJEWO:JEJOAIEUHPW
-         && this.checkOverlap(JSVector.addGetNew(simN, kW)) && this.checkOverlap(JSVector.addGetNew(simS, kW)))) {
+            ||
+            (this.checkOverlap(JSVector.addGetNew(simW, kW))
+                && this.checkOverlap(JSVector.addGetNew(simN, kW)) && this.checkOverlap(JSVector.addGetNew(simS, kW)))) {
             allowWMove = false;
 
         }
         if (this.checkOverlap(kE) ||
-         (this.checkOverlap(JSVector.addGetNew(simE, kE)) && this.checkOverlap(JSVector.addGetNew(simN, kE)) && this.checkOverlap(JSVector.addGetNew(simS, kE)))) {
+            (this.checkOverlap(JSVector.addGetNew(simE, kE)) && this.checkOverlap(JSVector.addGetNew(simN, kE)) && this.checkOverlap(JSVector.addGetNew(simS, kE)))) {
             allowEMove = false;
 
         }
         if (this.checkOverlap(kN) ||
-        (this.checkOverlap(JSVector.addGetNew(simN, kN)) && this.checkOverlap(JSVector.addGetNew(simE, kN)) && this.checkOverlap(JSVector.addGetNew(simW, kN)))) {
+            (this.checkOverlap(JSVector.addGetNew(simN, kN)) && this.checkOverlap(JSVector.addGetNew(simE, kN)) && this.checkOverlap(JSVector.addGetNew(simW, kN)))) {
             allowNMove = false;
 
         }
         if (this.checkOverlap(kS) ||
-        (this.checkOverlap(JSVector.addGetNew(simS, kS)) && this.checkOverlap(JSVector.addGetNew(simW, kS)) && this.checkOverlap(JSVector.addGetNew(simE, kS)))) {
+            (this.checkOverlap(JSVector.addGetNew(simS, kS)) && this.checkOverlap(JSVector.addGetNew(simW, kS)) && this.checkOverlap(JSVector.addGetNew(simE, kS)))) {
             allowSMove = false;
 
         }
